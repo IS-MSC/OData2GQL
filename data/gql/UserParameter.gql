@@ -1,0 +1,18 @@
+type Query {
+  UserParameter(UserId: ID, Id: ID): UserParameter
+}
+
+""""""
+type UserParameter {
+  UserId: ID
+  User: User
+  Id: ID
+  Value: String
+  Name: String
+}
+
+"""Пользователь"""
+type User {
+  UserId: ID
+  Name: String
+}

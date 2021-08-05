@@ -1,0 +1,21 @@
+type Query {
+  GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
+}
+
+""""""
+type GuiPreset {
+  Public: Boolean
+  PresetId: ID
+  ComponentId: ID
+  ElementId: ID
+  UserId: ID
+  User: User
+  Name: String
+  Value: String
+}
+
+"""Пользователь"""
+type User {
+  UserId: ID
+  Name: String
+}

@@ -1,0 +1,71 @@
+type Query {
+  DefectNotification(DefectNotificationId: ID): DefectNotification
+}
+
+"""Сообщение о дефекте"""
+type DefectNotification {
+  Type: String
+  DefectNotificationId: ID
+  Text: String
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  EquipmentId: ID
+  Equipment: Equipment
+  RequiredStartDate: String
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Техническое место"""
+type FunctLocation {
+  PlantId: ID
+  Plant: Plant
+  SupFunctLocationName: String
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  Name: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Верхнеуровневое ТМ"""
+type SupFunctLocation {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  SupFunctLocationId: ID
+  Name: String
+}
+
+"""Единица оборудования"""
+type Equipment {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  EquipmentId: ID
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}

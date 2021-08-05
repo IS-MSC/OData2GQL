@@ -1,0 +1,8 @@
+type Query {
+  WebLink(Url: ID): WebLink
+}
+
+""""""
+type WebLink {
+  Url: String
+}

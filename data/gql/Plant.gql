@@ -1,0 +1,10 @@
+type Query {
+  Plant(PlantId: ID): Plant
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}

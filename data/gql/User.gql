@@ -1,0 +1,9 @@
+type Query {
+  User(UserId: ID): User
+}
+
+"""Пользователь"""
+type User {
+  UserId: ID
+  Name: String
+}

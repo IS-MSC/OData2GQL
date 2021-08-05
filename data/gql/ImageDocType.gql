@@ -1,0 +1,9 @@
+type Query {
+  ImageDocType(FileExtension: ID): ImageDocType
+}
+
+""""""
+type ImageDocType {
+  FileExtension: String
+  MimeType: String
+}

@@ -1,0 +1,9 @@
+type Query {
+  VoltageClass(VoltageId: ID): VoltageClass
+}
+
+"""Класс вольтажа для оборудования"""
+type VoltageClass {
+  VoltageId: ID
+  Name: String
+}

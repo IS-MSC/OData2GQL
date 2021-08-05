@@ -1,0 +1,286 @@
+type Query {
+  DefectDetailDescription(DefectId: ID): DefectDetailDescription
+}
+
+""""""
+type DefectDetailDescription {
+  DefectId: ID
+  Defect: Defect
+  Description: String
+}
+
+""""""
+type Defect {
+  ActivityCatalogTypeId: ID
+  ComplexCriteria: String
+  ExecutionMethodName: String
+  ActivityGroupId: ID
+  ActivityGroup: ActivityGroup
+  ActivityId: ID
+  Activity: Activity
+  ActivityName: String
+  ActivityNumber: String
+  ActivityText: String
+  AfterRepairPhotoCounter: Int
+  BeforeRepairPhotoCounter: Int
+  ClosingDate: String
+  CostCenterId: ID
+  Counter: Int
+  CreateNotificNameAndPosition: String
+  CreateNotificPersonnelNumber: String
+  CreationDate: String
+  CriticalityCategory: String
+  DamageCatalogId: ID
+  DamageGroupId: ID
+  DamageGroup: DamageGroup
+  DamageGroupName: String
+  DamageId: ID
+  Damage: Damage
+  DamageName: String
+  DefectId: ID
+  DefectStatusId: ID
+  DetailedTextExists: Boolean
+  DetectDefectNameAndPosition: String
+  DetectDefectPersonnelNumber: String
+  DetectDefectPersonnelSignature: String
+  DetectionDate: String
+  DetectionTime: String
+  EquipmentId: ID
+  Equipment: Equipment
+  EquipmentName: String
+  EquipmentPhotoCounter: Int
+  ExecutionMethod: String
+  ExecutiveNameAndPosition: String
+  ExecutivePersonnelNumber: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  FunctLocationName: String
+  FunctLocationPhotoCounter: Int
+  IndexNumber: Int
+  InitialDefectRepairTerm: String
+  InternalDefectId: ID
+  IsRepairDeadlinePostponed: Boolean
+  JobOrder: String
+  LocationId: ID
+  Location: Location
+  LocationName: String
+  ManagerInstructionOnDefectRepair: String
+  NotificationTypeId: ID
+  NotifiedNameAndPosition: String
+  NotifiedPersonnelNumber: String
+  NumberOfDaysOverdue: Int
+  NumberOfDaysPostponed: Int
+  NumberOfRepairPostponements: String
+  ObjectType: ObjectType
+  ObjectTypeId: ID
+  OrderActivityTypeId: ID
+  OrderId: ID
+  Order: Order
+  PhotoRequirement: String
+  PlanningPlantId: ID
+  PlantId: ID
+  Plant: Plant
+  PlantName: String
+  PositionId: ID
+  PositionShortText: String
+  ReferencedNotificationId: ID
+  ReferencedNotification: ReferencedNotification
+  ReferencedNotificationShortText: String
+  RepairDate: String
+  RepairPlannedDate: String
+  RepairPlannedDateASUMRO: String
+  ResponsibleNameAndPosition: String
+  ResponsiblePersonnelNumber: String
+  ResponsiblePersonnelSignature: String
+  Stat: String
+  Sttxt: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+  SupFunctLocationName: String
+  SystemStatusId: ID
+  SystemStatus: SystemStatus
+  SystemStatusShortText: String
+  SystemStatusText: String
+  TaskCatalogTypeId: ID
+  TaskCodeGroupId: ID
+  TaskCodeGroupName: String
+  TaskCodeId: ID
+  TaskCodeName: String
+  TaskId: ID
+  Task: Task
+  UserStatusComment: String
+  UserStatusId: ID
+  UserStatus: UserStatus
+  UserStatusShortText: String
+  UserStatusText: String
+  Voltage: Float
+  VoltageClassId: ID
+  VoltageClass: VoltageClass
+  UserPassword: String
+}
+
+"""Группа кодов причины изменения срока устранения"""
+type ActivityGroup {
+  ActivityGroupId: ID
+  Name: String
+}
+
+"""Код причины изменения срока устранения"""
+type Activity {
+  ActivityId: ID
+  ActivityGroupId: ID
+  ActivityGroup: ActivityGroup
+  Name: String
+}
+
+"""Код группы неисправности/дефекта"""
+type DamageGroup {
+  DamageGroupId: ID
+  EquipmentId: ID
+  Equipment: Equipment
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+}
+
+"""Единица оборудования"""
+type Equipment {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  EquipmentId: ID
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Техническое место"""
+type FunctLocation {
+  PlantId: ID
+  Plant: Plant
+  SupFunctLocationName: String
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  Name: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Верхнеуровневое ТМ"""
+type SupFunctLocation {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  SupFunctLocationId: ID
+  Name: String
+}
+
+"""Код неисправности/дефекта"""
+type Damage {
+  DamageId: ID
+  EquipmentId: ID
+  Equipment: Equipment
+  DamageGroupId: ID
+  DamageGroup: DamageGroup
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+}
+
+"""Тип объекта оборудования"""
+type ObjectType {
+  ObjTypeId: ID
+  Name: String
+}
+
+"""Заказы к дефектам"""
+type Order {
+  DefectId: ID
+  Defect: Defect
+  DefectInOrder: Boolean
+  OrderId: ID
+  Text: String
+  BasicFinishDate: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  FunctLocationName: String
+  EquipmentId: ID
+  Equipment: Equipment
+  EquipmentName: String
+  MaintActivityTypeId: ID
+}
+
+"""Ссылочное сообщение"""
+type ReferencedNotification {
+  Type: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+  ReferencedNotificationId: ID
+  Text: String
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  EquipmentId: ID
+  Equipment: Equipment
+  RequiredStartDate: String
+}
+
+"""Системный статус дефекта"""
+type SystemStatus {
+  SysStatusId: ID
+  ShortName: String
+  Name: String
+}
+
+"""Код производственной программы"""
+type Task {
+  TaskId: ID
+  TaskGroupId: ID
+  TaskGroup: TaskGroup
+  Name: String
+}
+
+"""Код группы производственной программы"""
+type TaskGroup {
+  TaskGroupId: ID
+  Name: String
+}
+
+"""Пользовательский статус дефекта"""
+type UserStatus {
+  DefectId: ID
+  Defect: Defect
+  UsrStatusId: ID
+  ShortName: String
+  Name: String
+  NameAsAction: String
+}
+
+"""Класс вольтажа для оборудования"""
+type VoltageClass {
+  VoltageId: ID
+  Name: String
+}

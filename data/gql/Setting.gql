@@ -1,0 +1,9 @@
+type Query {
+  Setting(Key: ID): Setting
+}
+
+""""""
+type Setting {
+  Key: String
+  Value: String
+}

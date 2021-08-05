@@ -1,0 +1,30 @@
+{
+	"name": "odata2gql",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon src/index.ts --ignore ./data/"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@types/express": "^4.17.13",
+		"apollo-server": "^3.1.2",
+		"apollo-server-express": "^3.1.2",
+		"express": "^4.17.1",
+		"express-graphql": "^0.12.0",
+		"fast-xml-parser": "^3.19.0",
+		"graphql": "^15.5.1",
+		"node-fetch": "^2.6.1",
+		"typescript": "^4.3.5",
+		"xml-js": "^1.6.11"
+	},
+	"devDependencies": {
+		"@types/node": "^16.4.12",
+		"@types/node-fetch": "^2.5.12",
+		"nodemon": "^2.0.12",
+		"ts-node": "^10.1.0"
+	}
+}

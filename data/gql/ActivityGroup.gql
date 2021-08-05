@@ -1,0 +1,9 @@
+type Query {
+  ActivityGroup(ActivityGroupId: ID): ActivityGroup
+}
+
+"""Группа кодов причины изменения срока устранения"""
+type ActivityGroup {
+  ActivityGroupId: ID
+  Name: String
+}

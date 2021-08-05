@@ -1,0 +1,9 @@
+type Query {
+  UserPermission(Id: ID): UserPermission
+}
+
+""""""
+type UserPermission {
+  Id: ID
+  IsAvailable: Boolean
+}

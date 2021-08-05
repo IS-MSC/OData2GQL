@@ -1,0 +1,73 @@
+type Query {
+  ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
+}
+
+"""Ссылочное сообщение"""
+type ReferencedNotification {
+  Type: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+  ReferencedNotificationId: ID
+  Text: String
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  EquipmentId: ID
+  Equipment: Equipment
+  RequiredStartDate: String
+}
+
+"""Верхнеуровневое ТМ"""
+type SupFunctLocation {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  SupFunctLocationId: ID
+  Name: String
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Техническое место"""
+type FunctLocation {
+  PlantId: ID
+  Plant: Plant
+  SupFunctLocationName: String
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  Name: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Единица оборудования"""
+type Equipment {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  EquipmentId: ID
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}

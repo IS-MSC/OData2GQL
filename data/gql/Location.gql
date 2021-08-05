@@ -1,0 +1,18 @@
+type Query {
+  Location(PlantId: ID, LocationId: ID): Location
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}

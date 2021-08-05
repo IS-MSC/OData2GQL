@@ -1,0 +1,15 @@
+type Query {
+  GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+}
+
+"""Колонка таблицы GUI с настройками по умолчанию"""
+type GuiColumn {
+  ComponentId: ID
+  Path: String
+  ElementId: ID
+  Index: Int
+  ColumnId: ID
+  Name: String
+  Width: String
+  Visible: Boolean
+}

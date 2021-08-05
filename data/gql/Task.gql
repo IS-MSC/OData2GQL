@@ -1,0 +1,17 @@
+type Query {
+  Task(TaskId: ID, TaskGroupId: ID): Task
+}
+
+"""Код производственной программы"""
+type Task {
+  TaskId: ID
+  TaskGroupId: ID
+  TaskGroup: TaskGroup
+  Name: String
+}
+
+"""Код группы производственной программы"""
+type TaskGroup {
+  TaskGroupId: ID
+  Name: String
+}

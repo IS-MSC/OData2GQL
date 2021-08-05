@@ -1,0 +1,9 @@
+type Query {
+  ObjectType(ObjTypeId: ID): ObjectType
+}
+
+"""Тип объекта оборудования"""
+type ObjectType {
+  ObjTypeId: ID
+  Name: String
+}

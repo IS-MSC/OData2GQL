@@ -1,0 +1,469 @@
+type Query {
+  DefectDetailDescription(DefectId: ID): DefectDetailDescription
+  DefectPhoto(DefectId: ID, Name: ID, Source: ID, InternalId: ID): DefectPhoto
+  DefectNotification(DefectNotificationId: ID): DefectNotification
+  ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
+  ObjectType(ObjTypeId: ID): ObjectType
+  VoltageClass(VoltageId: ID): VoltageClass
+  SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
+  Equipment(EquipmentId: ID): Equipment
+  FunctLocation(FunctLocationId: ID): FunctLocation
+  UserStatusTransition(StatusFrom: ID, DefectId: ID, StatusTo: ID): UserStatusTransition
+  PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+  Order(DefectId: ID, OrderId: ID): Order
+  PropertyConfig(StatusFrom: ID, DefectId: ID, PropertyId: ID, StatusTo: ID): PropertyConfig
+  GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+  DamageGroup(DamageGroupId: ID): DamageGroup
+  Damage(DamageId: ID, DamageGroupId: ID): Damage
+  UserPermission(Id: ID): UserPermission
+  UserParameter(UserId: ID, Id: ID): UserParameter
+  WebLink(Url: ID): WebLink
+  Setting(Key: ID): Setting
+  TransactionLink(BusinessObjectType: ID): TransactionLink
+  ImageDocType(FileExtension: ID): ImageDocType
+  SystemStatus(SysStatusId: ID): SystemStatus
+  UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
+  Plant(PlantId: ID): Plant
+  Location(PlantId: ID, LocationId: ID): Location
+  Defect(DefectId: ID): Defect
+  User(UserId: ID): User
+  TaskGroup(TaskGroupId: ID): TaskGroup
+  Task(TaskId: ID, TaskGroupId: ID): Task
+  ActivityGroup(ActivityGroupId: ID): ActivityGroup
+  Activity(ActivityId: ID, ActivityGroupId: ID): Activity
+  DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
+  GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
+  GuiSelectedPreset(UserId: ID, ComponentId: ID, ElementId: ID): GuiSelectedPreset
+}
+
+""""""
+type DefectDetailDescription {
+  DefectId: ID
+  Defect: Defect
+  Description: String
+}
+
+""""""
+type Defect {
+  ActivityCatalogTypeId: ID
+  ComplexCriteria: String
+  ExecutionMethodName: String
+  ActivityGroupId: ID
+  ActivityGroup: ActivityGroup
+  ActivityId: ID
+  Activity: Activity
+  ActivityName: String
+  ActivityNumber: String
+  ActivityText: String
+  AfterRepairPhotoCounter: Int
+  BeforeRepairPhotoCounter: Int
+  ClosingDate: String
+  CostCenterId: ID
+  Counter: Int
+  CreateNotificNameAndPosition: String
+  CreateNotificPersonnelNumber: String
+  CreationDate: String
+  CriticalityCategory: String
+  DamageCatalogId: ID
+  DamageGroupId: ID
+  DamageGroup: DamageGroup
+  DamageGroupName: String
+  DamageId: ID
+  Damage: Damage
+  DamageName: String
+  DefectId: ID
+  DefectStatusId: ID
+  DetailedTextExists: Boolean
+  DetectDefectNameAndPosition: String
+  DetectDefectPersonnelNumber: String
+  DetectDefectPersonnelSignature: String
+  DetectionDate: String
+  DetectionTime: String
+  EquipmentId: ID
+  Equipment: Equipment
+  EquipmentName: String
+  EquipmentPhotoCounter: Int
+  ExecutionMethod: String
+  ExecutiveNameAndPosition: String
+  ExecutivePersonnelNumber: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  FunctLocationName: String
+  FunctLocationPhotoCounter: Int
+  IndexNumber: Int
+  InitialDefectRepairTerm: String
+  InternalDefectId: ID
+  IsRepairDeadlinePostponed: Boolean
+  JobOrder: String
+  LocationId: ID
+  Location: Location
+  LocationName: String
+  ManagerInstructionOnDefectRepair: String
+  NotificationTypeId: ID
+  NotifiedNameAndPosition: String
+  NotifiedPersonnelNumber: String
+  NumberOfDaysOverdue: Int
+  NumberOfDaysPostponed: Int
+  NumberOfRepairPostponements: String
+  ObjectType: ObjectType
+  ObjectTypeId: ID
+  OrderActivityTypeId: ID
+  OrderId: ID
+  Order: Order
+  PhotoRequirement: String
+  PlanningPlantId: ID
+  PlantId: ID
+  Plant: Plant
+  PlantName: String
+  PositionId: ID
+  PositionShortText: String
+  ReferencedNotificationId: ID
+  ReferencedNotification: ReferencedNotification
+  ReferencedNotificationShortText: String
+  RepairDate: String
+  RepairPlannedDate: String
+  RepairPlannedDateASUMRO: String
+  ResponsibleNameAndPosition: String
+  ResponsiblePersonnelNumber: String
+  ResponsiblePersonnelSignature: String
+  Stat: String
+  Sttxt: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+  SupFunctLocationName: String
+  SystemStatusId: ID
+  SystemStatus: SystemStatus
+  SystemStatusShortText: String
+  SystemStatusText: String
+  TaskCatalogTypeId: ID
+  TaskCodeGroupId: ID
+  TaskCodeGroupName: String
+  TaskCodeId: ID
+  TaskCodeName: String
+  TaskId: ID
+  Task: Task
+  UserStatusComment: String
+  UserStatusId: ID
+  UserStatus: UserStatus
+  UserStatusShortText: String
+  UserStatusText: String
+  Voltage: Float
+  VoltageClassId: ID
+  VoltageClass: VoltageClass
+  UserPassword: String
+}
+
+"""Группа кодов причины изменения срока устранения"""
+type ActivityGroup {
+  ActivityGroupId: ID
+  Name: String
+}
+
+"""Код причины изменения срока устранения"""
+type Activity {
+  ActivityId: ID
+  ActivityGroupId: ID
+  ActivityGroup: ActivityGroup
+  Name: String
+}
+
+"""Код группы неисправности/дефекта"""
+type DamageGroup {
+  DamageGroupId: ID
+  EquipmentId: ID
+  Equipment: Equipment
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+}
+
+"""Единица оборудования"""
+type Equipment {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  EquipmentId: ID
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Техническое место"""
+type FunctLocation {
+  PlantId: ID
+  Plant: Plant
+  SupFunctLocationName: String
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  Name: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Верхнеуровневое ТМ"""
+type SupFunctLocation {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  SupFunctLocationId: ID
+  Name: String
+}
+
+"""Код неисправности/дефекта"""
+type Damage {
+  DamageId: ID
+  EquipmentId: ID
+  Equipment: Equipment
+  DamageGroupId: ID
+  DamageGroup: DamageGroup
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+}
+
+"""Тип объекта оборудования"""
+type ObjectType {
+  ObjTypeId: ID
+  Name: String
+}
+
+"""Заказы к дефектам"""
+type Order {
+  DefectId: ID
+  Defect: Defect
+  DefectInOrder: Boolean
+  OrderId: ID
+  Text: String
+  BasicFinishDate: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  FunctLocationName: String
+  EquipmentId: ID
+  Equipment: Equipment
+  EquipmentName: String
+  MaintActivityTypeId: ID
+}
+
+"""Ссылочное сообщение"""
+type ReferencedNotification {
+  Type: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+  ReferencedNotificationId: ID
+  Text: String
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  EquipmentId: ID
+  Equipment: Equipment
+  RequiredStartDate: String
+}
+
+"""Системный статус дефекта"""
+type SystemStatus {
+  SysStatusId: ID
+  ShortName: String
+  Name: String
+}
+
+"""Код производственной программы"""
+type Task {
+  TaskId: ID
+  TaskGroupId: ID
+  TaskGroup: TaskGroup
+  Name: String
+}
+
+"""Код группы производственной программы"""
+type TaskGroup {
+  TaskGroupId: ID
+  Name: String
+}
+
+"""Пользовательский статус дефекта"""
+type UserStatus {
+  DefectId: ID
+  Defect: Defect
+  UsrStatusId: ID
+  ShortName: String
+  Name: String
+  NameAsAction: String
+}
+
+"""Класс вольтажа для оборудования"""
+type VoltageClass {
+  VoltageId: ID
+  Name: String
+}
+
+""""""
+type DefectPhoto {
+  DefectId: ID
+  Defect: Defect
+  Name: String
+  Source: String
+  InternalId: ID
+  PhotoType: String
+}
+
+"""Сообщение о дефекте"""
+type DefectNotification {
+  Type: String
+  DefectNotificationId: ID
+  Text: String
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  EquipmentId: ID
+  Equipment: Equipment
+  RequiredStartDate: String
+}
+
+""""""
+type UserStatusTransition {
+  StatusFrom: String
+  MassEditingAvailability: Boolean
+  DefectId: ID
+  Defect: Defect
+  StatusTo: String
+  RequiredDataGroup: String
+}
+
+"""Ответственный"""
+type PersonnelNumber {
+  CompanyCode: String
+  PersonnelNumberId: ID
+  Surname: String
+  Name: String
+  MiddleName: String
+  Function: String
+}
+
+"""Конфигурация свойства сущности для UI"""
+type PropertyConfig {
+  StatusFrom: String
+  DefectId: ID
+  Defect: Defect
+  PropertyId: ID
+  StatusTo: String
+  Visible: Boolean
+  Editable: Boolean
+  Required: Boolean
+}
+
+"""Колонка таблицы GUI с настройками по умолчанию"""
+type GuiColumn {
+  ComponentId: ID
+  Path: String
+  ElementId: ID
+  Index: Int
+  ColumnId: ID
+  Name: String
+  Width: String
+  Visible: Boolean
+}
+
+""""""
+type UserPermission {
+  Id: ID
+  IsAvailable: Boolean
+}
+
+""""""
+type UserParameter {
+  UserId: ID
+  User: User
+  Id: ID
+  Value: String
+  Name: String
+}
+
+"""Пользователь"""
+type User {
+  UserId: ID
+  Name: String
+}
+
+""""""
+type WebLink {
+  Url: String
+}
+
+""""""
+type Setting {
+  Key: String
+  Value: String
+}
+
+""""""
+type TransactionLink {
+  BusinessObjectType: String
+  WebguiCallCommand: String
+}
+
+""""""
+type ImageDocType {
+  FileExtension: String
+  MimeType: String
+}
+
+"""Аналитическая информация о статусах дефектов"""
+type DefectUserStatusHistory {
+  DefectId: ID
+  Defect: Defect
+  StatusName: String
+  StatusSetDate: String
+  StatusSetTime: String
+  DaysAfterStatus: Int
+  UserId: ID
+  User: User
+  UserName: String
+  UserFunction: String
+}
+
+""""""
+type GuiPreset {
+  Public: Boolean
+  PresetId: ID
+  ComponentId: ID
+  ElementId: ID
+  UserId: ID
+  User: User
+  Name: String
+  Value: String
+}
+
+""""""
+type GuiSelectedPreset {
+  UserId: ID
+  User: User
+  ComponentId: ID
+  ElementId: ID
+  PresetId: ID
+}

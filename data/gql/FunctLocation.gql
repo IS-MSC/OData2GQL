@@ -1,0 +1,41 @@
+type Query {
+  FunctLocation(FunctLocationId: ID): FunctLocation
+}
+
+"""Техническое место"""
+type FunctLocation {
+  PlantId: ID
+  Plant: Plant
+  SupFunctLocationName: String
+  LocationId: ID
+  Location: Location
+  FunctLocationId: ID
+  Name: String
+  SupFunctLocationId: ID
+  SupFunctLocation: SupFunctLocation
+}
+
+"""Завод/Филиал"""
+type Plant {
+  PlantId: ID
+  ShortText: String
+  Name: String
+}
+
+"""Местоположение"""
+type Location {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Name: String
+}
+
+"""Верхнеуровневое ТМ"""
+type SupFunctLocation {
+  PlantId: ID
+  Plant: Plant
+  LocationId: ID
+  Location: Location
+  SupFunctLocationId: ID
+  Name: String
+}

@@ -1,0 +1,13 @@
+type Query {
+  PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+}
+
+"""Ответственный"""
+type PersonnelNumber {
+  CompanyCode: String
+  PersonnelNumberId: ID
+  Surname: String
+  Name: String
+  MiddleName: String
+  Function: String
+}

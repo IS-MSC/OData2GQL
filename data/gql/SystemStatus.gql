@@ -1,0 +1,10 @@
+type Query {
+  SystemStatus(SysStatusId: ID): SystemStatus
+}
+
+"""Системный статус дефекта"""
+type SystemStatus {
+  SysStatusId: ID
+  ShortName: String
+  Name: String
+}
