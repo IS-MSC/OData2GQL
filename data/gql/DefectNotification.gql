@@ -16,21 +16,32 @@ type DefectNotification {
   EquipmentId: ID
   Equipment: Equipment
   RequiredStartDate: String
+  _metadata: Metadata
 }
 
 """Завод/Филиал"""
 type Plant {
+  LocationSet: [Location]
   PlantId: ID
   ShortText: String
   Name: String
+  _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
-  PlantId: ID
   Plant: Plant
+  PlantId: ID
   LocationId: ID
   Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }
 
 """Техническое место"""
@@ -44,6 +55,7 @@ type FunctLocation {
   Name: String
   SupFunctLocationId: ID
   SupFunctLocation: SupFunctLocation
+  _metadata: Metadata
 }
 
 """Верхнеуровневое ТМ"""
@@ -54,6 +66,7 @@ type SupFunctLocation {
   Location: Location
   SupFunctLocationId: ID
   Name: String
+  _metadata: Metadata
 }
 
 """Единица оборудования"""
@@ -68,4 +81,5 @@ type Equipment {
   FunctLocation: FunctLocation
   SupFunctLocationId: ID
   SupFunctLocation: SupFunctLocation
+  _metadata: Metadata
 }

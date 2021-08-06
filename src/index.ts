@@ -8,6 +8,7 @@ import {
 	GraphQLFloat,
 	GraphQLID,
 	GraphQLInt,
+	GraphQLList,
 	GraphQLObjectType,
 	GraphQLSchema,
 	GraphQLString,
@@ -17,6 +18,8 @@ import { castTypesToGQL, saveMetadata } from "./helpers";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { ApolloServer } from "apollo-server-express";
+import console from "console";
+import merge from "lodash.merge";
 const serviceURL =
 	"http://192.168.1.176:8080/sap/opu/odata/sap/ZPM_DL_MAIN_SRV";
 
@@ -60,6 +63,8 @@ const main = async () => {
 	const schema = await getSchema();
 	saveMetadata(schema);
 
+	const associations = schema.Association.map(makeAssociation);
+	console.log(associations);
 	const entities = schema.EntityType.map(makeEntity);
 	const gqlQueries = entities.map(makeGQLQuery);
 	gqlQueries.forEach((q) => {
@@ -94,9 +99,33 @@ const main = async () => {
 	// console.log(entities);
 };
 
+const makeNavigationResolver = (
+	entity: Entity,
+	field: string,
+	isSet: boolean
+) => {
+	const resolver = async (parent: any, params: any) => {
+		const query = entity.keys
+			.map((key) => {
+				console.log(key, parent);
+				return `${key}='${parent[key]}'`;
+			})
+			.join(",");
+		const url = `${serviceURL}/${entity.name}Set(${query})/${field}?$format=json`;
+		console.log(url);
+		const response = await fetct(url).then((r) => r.json());
+		console.log(response);
+		if (isSet) {
+			return response.d.results;
+		}
+		return response.d;
+	};
+	return resolver;
+};
+
 const makeFieldMap = (entity: Entity) => {
 	return () => {
-		return entity.properties.reduce((a, p) => {
+		const PropertiesFields = entity.properties.reduce((a, p) => {
 			a[p.name] = {
 				type: p.name.includes("Id") ? GraphQLID : castTypesToGQL(p.type),
 			};
@@ -111,8 +140,60 @@ const makeFieldMap = (entity: Entity) => {
 			}
 			return a;
 		}, {} as { [index: string]: any });
+		const NavigationFields = entity.navigation.reduce((a, n) => {
+			const gqlType = EntityMap[n.type].gqlType;
+			if (!gqlType) {
+				return a;
+			}
+			a[n.name] = {
+				type: n.isSet ? new GraphQLList(gqlType) : gqlType,
+				resolve: makeNavigationResolver(entity, n.name, n.isSet),
+			};
+			return a;
+		}, {} as { [index: string]: any });
+		const Metadata = metaDataField;
+
+		return merge(NavigationFields, PropertiesFields, Metadata);
 	};
 };
+const example = {
+	id: "http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')",
+	uri: "http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')",
+	type: "ZPM_DL_MAIN_SRV.DefectPhoto",
+	content_type: "avatar.png",
+	media_src:
+		"http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')/$value",
+	edit_media:
+		"http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')/$value",
+};
+const makeMetadataField = () => {
+	return {
+		_metadata: {
+			type: new GraphQLObjectType({
+				name: "Metadata",
+				fields: {
+					id: {
+						type: GraphQLString,
+					},
+					uri: {
+						type: GraphQLString,
+					},
+					media_src: {
+						type: GraphQLString,
+					},
+					edit_media: {
+						type: GraphQLString,
+					},
+				},
+			}),
+			resolve: (parent: any) => {
+				return parent.__metadata;
+			},
+		},
+	};
+};
+
+const metaDataField = makeMetadataField();
 
 const makeGQLType = (entity: Entity) => {
 	const type = new GraphQLObjectType({
@@ -211,16 +292,48 @@ const makeEntity = (raw: ODataEntity): Entity => {
 	});
 
 	const keys = toArray(raw.Key.PropertyRef).map((e) => e._attributes.Name);
+	const navigation =
+		(raw.NavigationProperty &&
+			toArray(raw.NavigationProperty).map((n) => {
+				const association =
+					AssociationMap[
+						n._attributes.Relationship.replace("ZPM_DL_MAIN_SRV.", "")
+					];
+				return {
+					name: n._attributes.Name.replace("ZPM_DL_MAIN_SRV.", ""),
+					type: association.to,
+					isSet: association.isSet,
+				};
+			})) ||
+		[];
+	console.log(navigation);
 	const entity = {
 		name: raw._attributes.Name,
 		description: raw._attributes.Label || "",
 		properties: properties,
 		keys: keys,
+		navigation,
 	};
 	EntityMap[raw._attributes.Name] = {
 		entity,
 	};
 	return entity;
+};
+
+const AssociationMap: { [name: string]: Association } = {};
+const makeAssociation = (raw: ODataAssociation): Association => {
+	const toRaw = raw.End.find((e) =>
+		e._attributes.Role.includes("ToRole_")
+	)!._attributes;
+	const to = toRaw.Type.replace("ZPM_DL_MAIN_SRV.", "");
+	const isSet = toRaw.Multiplicity == "*";
+	const association = {
+		name: raw._attributes.Name,
+		to,
+		isSet,
+	};
+	AssociationMap[association.name] = association;
+	return association;
 };
 
 interface Entity {
@@ -234,6 +347,17 @@ interface Entity {
 		label: string;
 	}[];
 	keys: string[];
+	navigation: {
+		name: string;
+		type: string;
+		isSet: boolean;
+	}[];
+}
+
+interface Association {
+	name: string;
+	to: string;
+	isSet: boolean;
 }
 
 interface ODataProperty {
@@ -257,10 +381,50 @@ interface ODataEntity {
 			| { _attributes: { Name: string } };
 	};
 	Property: ODataProperty[] | ODataProperty;
-	NavigationProperty?: any;
+	NavigationProperty?:
+		| {
+				_attributes: {
+					Name: string;
+					Relationship: string;
+					FromRole: string;
+					ToRole: string;
+				};
+		  }
+		| {
+				_attributes: {
+					Name: string;
+					Relationship: string;
+					FromRole: string;
+					ToRole: string;
+				};
+		  }[];
 }
+
+interface ODataAssociation {
+	_attributes: {
+		Name: string;
+	};
+	End: {
+		_attributes: {
+			Type: string;
+			Multiplicity: "1" | "*";
+			Role: string;
+		};
+	}[];
+	ReferentialConstraint: {
+		Principal: {
+			_attributes: { Role: string };
+			PropertyRef: { _attributes: { Name: string } };
+		};
+		Dependent: {
+			_attributes: { Role: string };
+			PropertyRef: { _attributes: { Name: string } };
+		};
+	};
+}
+
 export interface Schema {
 	EntityType: ODataEntity[];
-	Association: any[];
+	Association: ODataAssociation[];
 }
 main();

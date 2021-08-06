@@ -4,6 +4,7 @@ type Query {
 
 """"""
 type GuiPreset {
+  SelectedPresetSet: [GuiSelectedPreset]
   Public: Boolean
   PresetId: ID
   ComponentId: ID
@@ -12,10 +13,41 @@ type GuiPreset {
   User: User
   Name: String
   Value: String
+  _metadata: Metadata
+}
+
+""""""
+type GuiSelectedPreset {
+  Preset: [GuiSelectedPreset]
+  UserId: ID
+  User: User
+  ComponentId: ID
+  ElementId: ID
+  PresetId: ID
+  _metadata: Metadata
 }
 
 """Пользователь"""
 type User {
+  ParameterSet: [UserParameter]
   UserId: ID
   Name: String
+  _metadata: Metadata
+}
+
+""""""
+type UserParameter {
+  UserId: ID
+  User: User
+  Id: ID
+  Value: String
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

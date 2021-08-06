@@ -4,15 +4,25 @@ type Query {
 
 """Местоположение"""
 type Location {
-  PlantId: ID
   Plant: Plant
+  PlantId: ID
   LocationId: ID
   Name: String
+  _metadata: Metadata
 }
 
 """Завод/Филиал"""
 type Plant {
+  LocationSet: [Location]
   PlantId: ID
   ShortText: String
   Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

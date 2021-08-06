@@ -4,6 +4,25 @@ type Query {
 
 """Пользователь"""
 type User {
+  ParameterSet: [UserParameter]
   UserId: ID
   Name: String
+  _metadata: Metadata
+}
+
+""""""
+type UserParameter {
+  UserId: ID
+  User: User
+  Id: ID
+  Value: String
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

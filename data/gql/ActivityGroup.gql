@@ -4,6 +4,24 @@ type Query {
 
 """Группа кодов причины изменения срока устранения"""
 type ActivityGroup {
+  ActivitySet: [Activity]
   ActivityGroupId: ID
   Name: String
+  _metadata: Metadata
+}
+
+"""Код причины изменения срока устранения"""
+type Activity {
+  ActivityId: ID
+  ActivityGroupId: ID
+  ActivityGroup: ActivityGroup
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

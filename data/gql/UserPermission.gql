@@ -6,4 +6,12 @@ type Query {
 type UserPermission {
   Id: ID
   IsAvailable: Boolean
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

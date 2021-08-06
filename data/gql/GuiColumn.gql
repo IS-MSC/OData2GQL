@@ -12,4 +12,12 @@ type GuiColumn {
   Name: String
   Width: String
   Visible: Boolean
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

@@ -6,4 +6,12 @@ type Query {
 type ObjectType {
   ObjTypeId: ID
   Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

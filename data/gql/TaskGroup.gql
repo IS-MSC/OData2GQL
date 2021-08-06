@@ -4,6 +4,24 @@ type Query {
 
 """Код группы производственной программы"""
 type TaskGroup {
+  TaskSet: [Task]
   TaskGroupId: ID
   Name: String
+  _metadata: Metadata
+}
+
+"""Код производственной программы"""
+type Task {
+  TaskId: ID
+  TaskGroupId: ID
+  TaskGroup: TaskGroup
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

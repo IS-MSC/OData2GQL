@@ -9,10 +9,20 @@ type UserParameter {
   Id: ID
   Value: String
   Name: String
+  _metadata: Metadata
 }
 
 """Пользователь"""
 type User {
+  ParameterSet: [UserParameter]
   UserId: ID
   Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

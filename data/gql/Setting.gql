@@ -6,4 +6,12 @@ type Query {
 type Setting {
   Key: String
   Value: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
 }

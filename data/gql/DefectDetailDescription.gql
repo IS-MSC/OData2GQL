@@ -7,10 +7,14 @@ type DefectDetailDescription {
   DefectId: ID
   Defect: Defect
   Description: String
+  _metadata: Metadata
 }
 
 """"""
 type Defect {
+  Plant: Plant
+  PhotoSet: [DefectPhoto]
+  DetailDescription: DefectDetailDescription
   ActivityCatalogTypeId: ID
   ComplexCriteria: String
   ExecutionMethodName: String
@@ -79,7 +83,6 @@ type Defect {
   PhotoRequirement: String
   PlanningPlantId: ID
   PlantId: ID
-  Plant: Plant
   PlantName: String
   PositionId: ID
   PositionShortText: String
@@ -117,12 +120,51 @@ type Defect {
   VoltageClassId: ID
   VoltageClass: VoltageClass
   UserPassword: String
+  _metadata: Metadata
+}
+
+"""Завод/Филиал"""
+type Plant {
+  LocationSet: [Location]
+  PlantId: ID
+  ShortText: String
+  Name: String
+  _metadata: Metadata
+}
+
+"""Местоположение"""
+type Location {
+  Plant: Plant
+  PlantId: ID
+  LocationId: ID
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}
+
+""""""
+type DefectPhoto {
+  DefectId: ID
+  Defect: Defect
+  Name: String
+  Source: String
+  InternalId: ID
+  PhotoType: String
+  _metadata: Metadata
 }
 
 """Группа кодов причины изменения срока устранения"""
 type ActivityGroup {
+  ActivitySet: [Activity]
   ActivityGroupId: ID
   Name: String
+  _metadata: Metadata
 }
 
 """Код причины изменения срока устранения"""
@@ -131,16 +173,32 @@ type Activity {
   ActivityGroupId: ID
   ActivityGroup: ActivityGroup
   Name: String
+  _metadata: Metadata
 }
 
 """Код группы неисправности/дефекта"""
 type DamageGroup {
+  DamageSet: [Damage]
   DamageGroupId: ID
   EquipmentId: ID
   Equipment: Equipment
   Name: String
   FunctLocationId: ID
   FunctLocation: FunctLocation
+  _metadata: Metadata
+}
+
+"""Код неисправности/дефекта"""
+type Damage {
+  DamageGroup: DamageGroup
+  DamageId: ID
+  EquipmentId: ID
+  Equipment: Equipment
+  DamageGroupId: ID
+  Name: String
+  FunctLocationId: ID
+  FunctLocation: FunctLocation
+  _metadata: Metadata
 }
 
 """Единица оборудования"""
@@ -155,21 +213,7 @@ type Equipment {
   FunctLocation: FunctLocation
   SupFunctLocationId: ID
   SupFunctLocation: SupFunctLocation
-}
-
-"""Завод/Филиал"""
-type Plant {
-  PlantId: ID
-  ShortText: String
-  Name: String
-}
-
-"""Местоположение"""
-type Location {
-  PlantId: ID
-  Plant: Plant
-  LocationId: ID
-  Name: String
+  _metadata: Metadata
 }
 
 """Техническое место"""
@@ -183,6 +227,7 @@ type FunctLocation {
   Name: String
   SupFunctLocationId: ID
   SupFunctLocation: SupFunctLocation
+  _metadata: Metadata
 }
 
 """Верхнеуровневое ТМ"""
@@ -193,24 +238,14 @@ type SupFunctLocation {
   Location: Location
   SupFunctLocationId: ID
   Name: String
-}
-
-"""Код неисправности/дефекта"""
-type Damage {
-  DamageId: ID
-  EquipmentId: ID
-  Equipment: Equipment
-  DamageGroupId: ID
-  DamageGroup: DamageGroup
-  Name: String
-  FunctLocationId: ID
-  FunctLocation: FunctLocation
+  _metadata: Metadata
 }
 
 """Тип объекта оборудования"""
 type ObjectType {
   ObjTypeId: ID
   Name: String
+  _metadata: Metadata
 }
 
 """Заказы к дефектам"""
@@ -228,6 +263,7 @@ type Order {
   Equipment: Equipment
   EquipmentName: String
   MaintActivityTypeId: ID
+  _metadata: Metadata
 }
 
 """Ссылочное сообщение"""
@@ -246,6 +282,7 @@ type ReferencedNotification {
   EquipmentId: ID
   Equipment: Equipment
   RequiredStartDate: String
+  _metadata: Metadata
 }
 
 """Системный статус дефекта"""
@@ -253,6 +290,7 @@ type SystemStatus {
   SysStatusId: ID
   ShortName: String
   Name: String
+  _metadata: Metadata
 }
 
 """Код производственной программы"""
@@ -261,26 +299,59 @@ type Task {
   TaskGroupId: ID
   TaskGroup: TaskGroup
   Name: String
+  _metadata: Metadata
 }
 
 """Код группы производственной программы"""
 type TaskGroup {
+  TaskSet: [Task]
   TaskGroupId: ID
   Name: String
+  _metadata: Metadata
 }
 
 """Пользовательский статус дефекта"""
 type UserStatus {
+  AvailableUserStatusSet: [UserStatus]
+  PropertyConfigSet: [PropertyConfig]
+  TransitionSet: [UserStatusTransition]
   DefectId: ID
   Defect: Defect
   UsrStatusId: ID
   ShortName: String
   Name: String
   NameAsAction: String
+  _metadata: Metadata
+}
+
+"""Конфигурация свойства сущности для UI"""
+type PropertyConfig {
+  StatusFrom: String
+  DefectId: ID
+  Defect: Defect
+  PropertyId: ID
+  StatusTo: String
+  Visible: Boolean
+  Editable: Boolean
+  Required: Boolean
+  _metadata: Metadata
+}
+
+""""""
+type UserStatusTransition {
+  PropertyConfigSet: [PropertyConfig]
+  StatusFrom: String
+  MassEditingAvailability: Boolean
+  DefectId: ID
+  Defect: Defect
+  StatusTo: String
+  RequiredDataGroup: String
+  _metadata: Metadata
 }
 
 """Класс вольтажа для оборудования"""
 type VoltageClass {
   VoltageId: ID
   Name: String
+  _metadata: Metadata
 }

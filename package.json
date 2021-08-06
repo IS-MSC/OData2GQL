@@ -17,11 +17,13 @@
 		"express-graphql": "^0.12.0",
 		"fast-xml-parser": "^3.19.0",
 		"graphql": "^15.5.1",
+		"lodash.merge": "^4.6.2",
 		"node-fetch": "^2.6.1",
 		"typescript": "^4.3.5",
 		"xml-js": "^1.6.11"
 	},
 	"devDependencies": {
+		"@types/lodash.merge": "^4.6.6",
 		"@types/node": "^16.4.12",
 		"@types/node-fetch": "^2.5.12",
 		"nodemon": "^2.0.12",
