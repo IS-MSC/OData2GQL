@@ -1,5 +1,6 @@
 type Query {
   UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
+  UserStatusSet(first: Int, offset: Int, substring: String): [UserStatus]
 }
 
 """Пользовательский статус дефекта"""

@@ -1,5 +1,6 @@
 type Query {
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+  PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
 }
 
 """Ответственный"""

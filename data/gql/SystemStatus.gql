@@ -1,5 +1,6 @@
 type Query {
   SystemStatus(SysStatusId: ID): SystemStatus
+  SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
 }
 
 """Системный статус дефекта"""

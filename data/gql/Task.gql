@@ -1,5 +1,6 @@
 type Query {
   Task(TaskId: ID, TaskGroupId: ID): Task
+  TaskSet(first: Int, offset: Int, substring: String): [Task]
 }
 
 """Код производственной программы"""

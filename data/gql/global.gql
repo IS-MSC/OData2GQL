@@ -1,39 +1,74 @@
 type Query {
   DefectDetailDescription(DefectId: ID): DefectDetailDescription
+  DefectDetailDescriptionSet(first: Int, offset: Int, substring: String): [DefectDetailDescription]
   DefectPhoto(DefectId: ID, Name: ID, Source: ID, InternalId: ID): DefectPhoto
+  DefectPhotoSet(first: Int, offset: Int, substring: String): [DefectPhoto]
   DefectNotification(DefectNotificationId: ID): DefectNotification
+  DefectNotificationSet(first: Int, offset: Int, substring: String): [DefectNotification]
   ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
+  ReferencedNotificationSet(first: Int, offset: Int, substring: String): [ReferencedNotification]
   ObjectType(ObjTypeId: ID): ObjectType
+  ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
   VoltageClass(VoltageId: ID): VoltageClass
+  VoltageClassSet(first: Int, offset: Int, substring: String): [VoltageClass]
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
+  SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
   Equipment(EquipmentId: ID): Equipment
+  EquipmentSet(first: Int, offset: Int, substring: String): [Equipment]
   FunctLocation(FunctLocationId: ID): FunctLocation
+  FunctLocationSet(first: Int, offset: Int, substring: String): [FunctLocation]
   UserStatusTransition(StatusFrom: ID, DefectId: ID, StatusTo: ID): UserStatusTransition
+  UserStatusTransitionSet(first: Int, offset: Int, substring: String): [UserStatusTransition]
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+  PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
   Order(DefectId: ID, OrderId: ID): Order
+  OrderSet(first: Int, offset: Int, substring: String): [Order]
   PropertyConfig(StatusFrom: ID, DefectId: ID, PropertyId: ID, StatusTo: ID): PropertyConfig
+  PropertyConfigSet(first: Int, offset: Int, substring: String): [PropertyConfig]
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+  GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
   DamageGroup(DamageGroupId: ID): DamageGroup
+  DamageGroupSet(first: Int, offset: Int, substring: String): [DamageGroup]
   Damage(DamageId: ID, DamageGroupId: ID): Damage
+  DamageSet(first: Int, offset: Int, substring: String): [Damage]
   UserPermission(Id: ID): UserPermission
+  UserPermissionSet(first: Int, offset: Int, substring: String): [UserPermission]
   UserParameter(UserId: ID, Id: ID): UserParameter
+  UserParameterSet(first: Int, offset: Int, substring: String): [UserParameter]
   WebLink(Url: ID): WebLink
+  WebLinkSet(first: Int, offset: Int, substring: String): [WebLink]
   Setting(Key: ID): Setting
+  SettingSet(first: Int, offset: Int, substring: String): [Setting]
   TransactionLink(BusinessObjectType: ID): TransactionLink
+  TransactionLinkSet(first: Int, offset: Int, substring: String): [TransactionLink]
   ImageDocType(FileExtension: ID): ImageDocType
+  ImageDocTypeSet(first: Int, offset: Int, substring: String): [ImageDocType]
   SystemStatus(SysStatusId: ID): SystemStatus
+  SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
   UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
+  UserStatusSet(first: Int, offset: Int, substring: String): [UserStatus]
   Plant(PlantId: ID): Plant
+  PlantSet(first: Int, offset: Int, substring: String): [Plant]
   Location(PlantId: ID, LocationId: ID): Location
+  LocationSet(first: Int, offset: Int, substring: String): [Location]
   Defect(DefectId: ID): Defect
+  DefectSet(first: Int, offset: Int, substring: String): [Defect]
   User(UserId: ID): User
+  UserSet(first: Int, offset: Int, substring: String): [User]
   TaskGroup(TaskGroupId: ID): TaskGroup
+  TaskGroupSet(first: Int, offset: Int, substring: String): [TaskGroup]
   Task(TaskId: ID, TaskGroupId: ID): Task
+  TaskSet(first: Int, offset: Int, substring: String): [Task]
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
+  ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
   Activity(ActivityId: ID, ActivityGroupId: ID): Activity
+  ActivitySet(first: Int, offset: Int, substring: String): [Activity]
   DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
+  DefectUserStatusHistorySet(first: Int, offset: Int, substring: String): [DefectUserStatusHistory]
   GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
+  GuiPresetSet(first: Int, offset: Int, substring: String): [GuiPreset]
   GuiSelectedPreset(UserId: ID, ComponentId: ID, ElementId: ID): GuiSelectedPreset
+  GuiSelectedPresetSet(first: Int, offset: Int, substring: String): [GuiSelectedPreset]
 }
 
 """"""

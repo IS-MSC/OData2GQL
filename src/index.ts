@@ -156,16 +156,7 @@ const makeFieldMap = (entity: Entity) => {
 		return merge(NavigationFields, PropertiesFields, Metadata);
 	};
 };
-const example = {
-	id: "http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')",
-	uri: "http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')",
-	type: "ZPM_DL_MAIN_SRV.DefectPhoto",
-	content_type: "avatar.png",
-	media_src:
-		"http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')/$value",
-	edit_media:
-		"http://fhd011d.moesk.ru:8010/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/DefectPhotoSet(DefectId='1000001476',Name='avatar.png',Source='ESYS',InternalId='00000000000EOsTP')/$value",
-};
+
 const makeMetadataField = () => {
 	return {
 		_metadata: {
@@ -234,6 +225,28 @@ const makeParentResolver = (entity: Entity) => {
 	};
 	return resolver;
 };
+
+const makeSetResolver = (entity: Entity) => {
+	const resolver = async (_: any, params: any) => {
+		const query = [
+			params["first"] ? `$top=${params["first"]}` : "",
+			params["offset"] ? `$skip=${params["offset"]}` : "",
+			params["substring"]
+				? `$filter=substringof('${encodeURIComponent(
+						params["substring"]
+				  )}', DamageName)`
+				: "",
+		]
+			.filter((v) => !!v)
+			.join("&");
+		const url = `${serviceURL}/${entity.name}Set?$format=json&${query}`;
+		console.log(url);
+		const response = await fetct(url).then((r) => r.json());
+		console.log(response);
+		return response.d.results;
+	};
+	return resolver;
+};
 const globalQueryFields: { [index: string]: any } = {};
 const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 	const fields: { [index: string]: any } = {};
@@ -247,8 +260,21 @@ const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 		}, {} as { [index: string]: any }),
 		resolve: makeKeysResolver(entity),
 	};
+	const setField = {
+		type: new GraphQLList(type),
+		args: ["first", "offset", "substring"].reduce((a, k) => {
+			a[k] = {
+				type: k === "substring" ? GraphQLString : GraphQLInt,
+			};
+			return a;
+		}, {} as { [index: string]: any }),
+		resolve: makeSetResolver(entity),
+	};
 	fields[entity.name] = field;
+	fields[entity.name + "Set"] = setField;
+
 	globalQueryFields[entity.name] = field;
+	globalQueryFields[entity.name + "Set"] = setField;
 	return fields;
 };
 const makeGlobalQuery = () => {

@@ -1,5 +1,6 @@
 type Query {
   UserPermission(Id: ID): UserPermission
+  UserPermissionSet(first: Int, offset: Int, substring: String): [UserPermission]
 }
 
 """"""

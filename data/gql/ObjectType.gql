@@ -1,5 +1,6 @@
 type Query {
   ObjectType(ObjTypeId: ID): ObjectType
+  ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
 }
 
 """Тип объекта оборудования"""

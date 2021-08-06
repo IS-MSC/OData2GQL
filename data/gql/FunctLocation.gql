@@ -1,5 +1,6 @@
 type Query {
   FunctLocation(FunctLocationId: ID): FunctLocation
+  FunctLocationSet(first: Int, offset: Int, substring: String): [FunctLocation]
 }
 
 """Техническое место"""

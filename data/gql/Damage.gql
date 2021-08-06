@@ -1,5 +1,6 @@
 type Query {
   Damage(DamageId: ID, DamageGroupId: ID): Damage
+  DamageSet(first: Int, offset: Int, substring: String): [Damage]
 }
 
 """Код неисправности/дефекта"""

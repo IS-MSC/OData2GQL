@@ -1,5 +1,6 @@
 type Query {
   UserStatusTransition(StatusFrom: ID, DefectId: ID, StatusTo: ID): UserStatusTransition
+  UserStatusTransitionSet(first: Int, offset: Int, substring: String): [UserStatusTransition]
 }
 
 """"""

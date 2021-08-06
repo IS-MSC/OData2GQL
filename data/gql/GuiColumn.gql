@@ -1,5 +1,6 @@
 type Query {
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+  GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
 }
 
 """Колонка таблицы GUI с настройками по умолчанию"""

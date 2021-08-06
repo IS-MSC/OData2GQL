@@ -1,5 +1,6 @@
 type Query {
   Order(DefectId: ID, OrderId: ID): Order
+  OrderSet(first: Int, offset: Int, substring: String): [Order]
 }
 
 """Заказы к дефектам"""

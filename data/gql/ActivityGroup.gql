@@ -1,5 +1,6 @@
 type Query {
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
+  ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
 }
 
 """Группа кодов причины изменения срока устранения"""

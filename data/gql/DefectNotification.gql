@@ -1,5 +1,6 @@
 type Query {
   DefectNotification(DefectNotificationId: ID): DefectNotification
+  DefectNotificationSet(first: Int, offset: Int, substring: String): [DefectNotification]
 }
 
 """Сообщение о дефекте"""

@@ -1,5 +1,6 @@
 type Query {
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
+  SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
 }
 
 """Верхнеуровневое ТМ"""

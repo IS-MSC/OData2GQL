@@ -1,5 +1,6 @@
 type Query {
   DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
+  DefectUserStatusHistorySet(first: Int, offset: Int, substring: String): [DefectUserStatusHistory]
 }
 
 """Аналитическая информация о статусах дефектов"""

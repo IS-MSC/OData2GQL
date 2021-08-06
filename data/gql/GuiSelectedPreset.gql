@@ -1,5 +1,6 @@
 type Query {
   GuiSelectedPreset(UserId: ID, ComponentId: ID, ElementId: ID): GuiSelectedPreset
+  GuiSelectedPresetSet(first: Int, offset: Int, substring: String): [GuiSelectedPreset]
 }
 
 """"""
