@@ -1,5 +1,5 @@
 import parser from "xml-js";
-import fetct from "node-fetch";
+import fetch from "node-fetch";
 import fs from "fs";
 import {
 	graphql,
@@ -10,23 +10,24 @@ import {
 	GraphQLInt,
 	GraphQLList,
 	GraphQLObjectType,
+	GraphQLOutputType,
 	GraphQLSchema,
 	GraphQLString,
+	GraphQLType,
 	printSchema,
 } from "graphql";
-import { castTypesToGQL, saveMetadata } from "./helpers";
+import { capitalize, castTypesToGQL, saveSchema, toArray } from "./helpers";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { ApolloServer } from "apollo-server-express";
 import console from "console";
 import merge from "lodash.merge";
+import { createDataSource } from "./DataSource";
 const serviceURL =
 	"http://192.168.1.176:8080/sap/opu/odata/sap/ZPM_DL_MAIN_SRV";
 
-const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
-
 const getMetadata = async () => {
-	const metadata = await fetct(serviceURL + "/$metadata").then((response) =>
+	const metadata = await fetch(serviceURL + "/$metadata").then((response) =>
 		response.text()
 	);
 	return metadata;
@@ -61,10 +62,10 @@ const getSchema = async () => {
 
 const main = async () => {
 	const schema = await getSchema();
-	saveMetadata(schema);
+	saveSchema(schema);
 
 	const associations = schema.Association.map(makeAssociation);
-	console.log(associations);
+
 	const entities = schema.EntityType.map(makeEntity);
 	const gqlQueries = entities.map(makeGQLQuery);
 	gqlQueries.forEach((q) => {
@@ -89,6 +90,11 @@ const main = async () => {
 	var app = express();
 	const server = new ApolloServer({
 		schema: globalSchema,
+		dataSources: () => {
+			return {
+				oData: new DataSource(),
+			};
+		},
 	});
 	await server.start();
 	server.applyMiddleware({ app });
@@ -99,65 +105,85 @@ const main = async () => {
 	// console.log(entities);
 };
 
-const makeNavigationResolver = (
-	entity: Entity,
-	field: string,
-	isSet: boolean
-) => {
-	const resolver = async (parent: any, params: any) => {
+const DataSource = createDataSource(serviceURL);
+interface ResolverContext {
+	dataSources: { oData: any };
+}
+
+const makeNavigationResolver = (entity: Entity, field: string) => {
+	const resolver = async (
+		parent: any,
+		params: any,
+		context: ResolverContext
+	) => {
 		const query = entity.keys
 			.map((key) => {
-				console.log(key, parent);
 				return `${key}='${parent[key]}'`;
 			})
 			.join(",");
 		const url = `${serviceURL}/${entity.name}Set(${query})/${field}?$format=json`;
 		console.log(url);
-		const response = await fetct(url).then((r) => r.json());
-		console.log(response);
-		if (isSet) {
-			return response.d.results;
-		}
-		return response.d;
+		const response = await context.dataSources.oData.request(url);
+
+		return response;
 	};
 	return resolver;
 };
 
+interface GQLField {
+	type: GraphQLOutputType;
+	resolve?: (parent: any, params: any, context: any) => any;
+}
+
+interface FieldsMap {
+	[index: string]: GQLField;
+}
+
+const makePropertiesFields = (entity: Entity) => {
+	return entity.properties.reduce((accomulator, property) => {
+		accomulator[property.name] = {
+			type: property.name.includes("Id")
+				? GraphQLID
+				: castTypesToGQL(property.type),
+		};
+		if (property.name.includes("Id")) {
+			const name = property.name.replace("Id", "");
+			if (name !== entity.name && EntityMap[name] && EntityMap[name].gqlType) {
+				accomulator[name] = {
+					type: EntityMap[name].gqlType!,
+					resolve: makeParentResolver(EntityMap[name].entity),
+				};
+			}
+		}
+		return accomulator;
+	}, {} as FieldsMap);
+};
+
+const makeNavigationFields = (entity: Entity) => {
+	return entity.navigation.reduce((accommulator, navigation) => {
+		const gqlType = EntityMap[navigation.type].gqlType;
+		if (!gqlType) {
+			return accommulator;
+		}
+		accommulator[navigation.name] = {
+			type: navigation.isSet ? new GraphQLList(gqlType) : gqlType,
+			resolve: makeNavigationResolver(entity, navigation.name),
+		};
+		return accommulator;
+	}, {} as FieldsMap);
+};
+
 const makeFieldMap = (entity: Entity) => {
 	return () => {
-		const PropertiesFields = entity.properties.reduce((a, p) => {
-			a[p.name] = {
-				type: p.name.includes("Id") ? GraphQLID : castTypesToGQL(p.type),
-			};
-			if (p.name.includes("Id")) {
-				const name = p.name.replace("Id", "");
-				if (name !== entity.name && EntityMap[name]) {
-					a[name] = {
-						type: EntityMap[name].gqlType,
-						resolve: makeParentResolver(EntityMap[name].entity),
-					};
-				}
-			}
-			return a;
-		}, {} as { [index: string]: any });
-		const NavigationFields = entity.navigation.reduce((a, n) => {
-			const gqlType = EntityMap[n.type].gqlType;
-			if (!gqlType) {
-				return a;
-			}
-			a[n.name] = {
-				type: n.isSet ? new GraphQLList(gqlType) : gqlType,
-				resolve: makeNavigationResolver(entity, n.name, n.isSet),
-			};
-			return a;
-		}, {} as { [index: string]: any });
+		const PropertiesFields = makePropertiesFields(entity);
+		const NavigationFields = makeNavigationFields(entity);
 		const Metadata = metaDataField;
 
 		return merge(NavigationFields, PropertiesFields, Metadata);
 	};
 };
 
-const makeMetadataField = () => {
+const makeMetadataField = (): FieldsMap => {
 	return {
 		_metadata: {
 			type: new GraphQLObjectType({
@@ -195,39 +221,42 @@ const makeGQLType = (entity: Entity) => {
 	return type;
 };
 const makeKeysResolver = (entity: Entity) => {
-	const resolver = async (_: any, params: any) => {
+	const resolver = async (_: any, params: any, context: ResolverContext) => {
 		const query = entity.keys
 			.map((key) => {
 				return `${key}='${params[key]}'`;
 			})
 			.join(",");
-		const response = await fetct(
+		const response = await context.dataSources.oData.request(
 			`${serviceURL}/${entity.name}Set(${query})?$format=json`
-		).then((r) => r.json());
-		console.log(response);
-		return response.d;
+		);
+		return response;
 	};
 	return resolver;
 };
 
 const makeParentResolver = (entity: Entity) => {
-	const resolver = async (parent: any, params: any) => {
+	const resolver = async (
+		parent: any,
+		params: any,
+		context: ResolverContext
+	) => {
 		const query = entity.keys
 			.map((key) => {
 				return `${key}='${parent[key]}'`;
 			})
 			.join(",");
-		const response = await fetct(
+		const response = await context.dataSources.oData.request(
 			`${serviceURL}/${entity.name}Set(${query})?$format=json`
-		).then((r) => r.json());
-		console.log(response);
-		return response.d;
+		);
+
+		return response;
 	};
 	return resolver;
 };
 
 const makeSetResolver = (entity: Entity) => {
-	const resolver = async (_: any, params: any) => {
+	const resolver = async (_: any, params: any, context: ResolverContext) => {
 		const query = [
 			params["first"] ? `$top=${params["first"]}` : "",
 			params["offset"] ? `$skip=${params["offset"]}` : "",
@@ -241,9 +270,9 @@ const makeSetResolver = (entity: Entity) => {
 			.join("&");
 		const url = `${serviceURL}/${entity.name}Set?$format=json&${query}`;
 		console.log(url);
-		const response = await fetct(url).then((r) => r.json());
-		console.log(response);
-		return response.d.results;
+		const response = await context.dataSources.oData.request(url);
+
+		return response;
 	};
 	return resolver;
 };
@@ -295,10 +324,6 @@ const makeGQLQuery = (entity: Entity) => {
 	return { query, name: entity.name };
 };
 
-const toArray = <T>(value: T | T[]): T[] => {
-	return Array.isArray(value) ? value : [value];
-};
-
 const EntityMap: {
 	[name: string]: {
 		gqlType?: GraphQLObjectType;
@@ -308,7 +333,6 @@ const EntityMap: {
 
 const makeEntity = (raw: ODataEntity): Entity => {
 	const properties = toArray(raw.Property).map((p) => {
-		// console.log(p._attributes.Type);
 		return {
 			name: p._attributes.Name,
 			type: p._attributes.Type,
@@ -332,7 +356,7 @@ const makeEntity = (raw: ODataEntity): Entity => {
 				};
 			})) ||
 		[];
-	console.log(navigation);
+
 	const entity = {
 		name: raw._attributes.Name,
 		description: raw._attributes.Label || "",

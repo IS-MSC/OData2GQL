@@ -24,8 +24,14 @@ export const castTypesToGQL = (type: string) => {
 	}
 };
 
-export const saveMetadata = (schema: Schema) => {
+export const saveSchema = (schema: Schema) => {
 	fs.writeFile("./data/data.json", JSON.stringify(schema), () => {
 		// console.log("Done!");
 	});
+};
+
+export const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
+
+export const toArray = <T>(value: T | T[]): T[] => {
+	return Array.isArray(value) ? value : [value];
 };
