@@ -1,193 +1,548 @@
 type Query {
+  """"""
   DefectDetailDescription(DefectId: ID): DefectDetailDescription
+
+  """"""
   DefectDetailDescriptionSet(first: Int, offset: Int, substring: String): [DefectDetailDescription]
+
+  """"""
   DefectPhoto(DefectId: ID, Name: ID, Source: ID, InternalId: ID): DefectPhoto
+
+  """"""
   DefectPhotoSet(first: Int, offset: Int, substring: String): [DefectPhoto]
+
+  """Сообщение о дефекте"""
   DefectNotification(DefectNotificationId: ID): DefectNotification
+
+  """Сообщение о дефекте"""
   DefectNotificationSet(first: Int, offset: Int, substring: String): [DefectNotification]
+
+  """Ссылочное сообщение"""
   ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
+
+  """Ссылочное сообщение"""
   ReferencedNotificationSet(first: Int, offset: Int, substring: String): [ReferencedNotification]
+
+  """Тип объекта оборудования"""
   ObjectType(ObjTypeId: ID): ObjectType
+
+  """Тип объекта оборудования"""
   ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
+
+  """Класс вольтажа для оборудования"""
   VoltageClass(VoltageId: ID): VoltageClass
+
+  """Класс вольтажа для оборудования"""
   VoltageClassSet(first: Int, offset: Int, substring: String): [VoltageClass]
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
+
+  """Единица оборудования"""
   Equipment(EquipmentId: ID): Equipment
+
+  """Единица оборудования"""
   EquipmentSet(first: Int, offset: Int, substring: String): [Equipment]
+
+  """Техническое место"""
   FunctLocation(FunctLocationId: ID): FunctLocation
+
+  """Техническое место"""
   FunctLocationSet(first: Int, offset: Int, substring: String): [FunctLocation]
+
+  """"""
   UserStatusTransition(StatusFrom: ID, DefectId: ID, StatusTo: ID): UserStatusTransition
+
+  """"""
   UserStatusTransitionSet(first: Int, offset: Int, substring: String): [UserStatusTransition]
+
+  """Ответственный"""
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+
+  """Ответственный"""
   PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
+
+  """Заказы к дефектам"""
   Order(DefectId: ID, OrderId: ID): Order
+
+  """Заказы к дефектам"""
   OrderSet(first: Int, offset: Int, substring: String): [Order]
+
+  """Конфигурация свойства сущности для UI"""
   PropertyConfig(StatusFrom: ID, DefectId: ID, PropertyId: ID, StatusTo: ID): PropertyConfig
+
+  """Конфигурация свойства сущности для UI"""
   PropertyConfigSet(first: Int, offset: Int, substring: String): [PropertyConfig]
+
+  """Колонка таблицы GUI с настройками по умолчанию"""
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+
+  """Колонка таблицы GUI с настройками по умолчанию"""
   GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
+
+  """Код группы неисправности/дефекта"""
   DamageGroup(DamageGroupId: ID): DamageGroup
+
+  """Код группы неисправности/дефекта"""
   DamageGroupSet(first: Int, offset: Int, substring: String): [DamageGroup]
+
+  """Код неисправности/дефекта"""
   Damage(DamageId: ID, DamageGroupId: ID): Damage
+
+  """Код неисправности/дефекта"""
   DamageSet(first: Int, offset: Int, substring: String): [Damage]
+
+  """"""
   UserPermission(Id: ID): UserPermission
+
+  """"""
   UserPermissionSet(first: Int, offset: Int, substring: String): [UserPermission]
+
+  """"""
   UserParameter(UserId: ID, Id: ID): UserParameter
+
+  """"""
   UserParameterSet(first: Int, offset: Int, substring: String): [UserParameter]
+
+  """"""
   WebLink(Url: ID): WebLink
+
+  """"""
   WebLinkSet(first: Int, offset: Int, substring: String): [WebLink]
+
+  """"""
   Setting(Key: ID): Setting
+
+  """"""
   SettingSet(first: Int, offset: Int, substring: String): [Setting]
+
+  """"""
   TransactionLink(BusinessObjectType: ID): TransactionLink
+
+  """"""
   TransactionLinkSet(first: Int, offset: Int, substring: String): [TransactionLink]
+
+  """"""
   ImageDocType(FileExtension: ID): ImageDocType
+
+  """"""
   ImageDocTypeSet(first: Int, offset: Int, substring: String): [ImageDocType]
+
+  """Системный статус дефекта"""
   SystemStatus(SysStatusId: ID): SystemStatus
+
+  """Системный статус дефекта"""
   SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
+
+  """Пользовательский статус дефекта"""
   UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
+
+  """Пользовательский статус дефекта"""
   UserStatusSet(first: Int, offset: Int, substring: String): [UserStatus]
+
+  """Завод/Филиал"""
   Plant(PlantId: ID): Plant
+
+  """Завод/Филиал"""
   PlantSet(first: Int, offset: Int, substring: String): [Plant]
+
+  """Местоположение"""
   Location(PlantId: ID, LocationId: ID): Location
+
+  """Местоположение"""
   LocationSet(first: Int, offset: Int, substring: String): [Location]
+
+  """"""
   Defect(DefectId: ID): Defect
+
+  """"""
   DefectSet(first: Int, offset: Int, substring: String): [Defect]
+
+  """Пользователь"""
   User(UserId: ID): User
+
+  """Пользователь"""
   UserSet(first: Int, offset: Int, substring: String): [User]
+
+  """Код группы производственной программы"""
   TaskGroup(TaskGroupId: ID): TaskGroup
+
+  """Код группы производственной программы"""
   TaskGroupSet(first: Int, offset: Int, substring: String): [TaskGroup]
+
+  """Код производственной программы"""
   Task(TaskId: ID, TaskGroupId: ID): Task
+
+  """Код производственной программы"""
   TaskSet(first: Int, offset: Int, substring: String): [Task]
+
+  """Группа кодов причины изменения срока устранения"""
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
+
+  """Группа кодов причины изменения срока устранения"""
   ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
+
+  """Код причины изменения срока устранения"""
   Activity(ActivityId: ID, ActivityGroupId: ID): Activity
+
+  """Код причины изменения срока устранения"""
   ActivitySet(first: Int, offset: Int, substring: String): [Activity]
+
+  """Аналитическая информация о статусах дефектов"""
   DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
+
+  """Аналитическая информация о статусах дефектов"""
   DefectUserStatusHistorySet(first: Int, offset: Int, substring: String): [DefectUserStatusHistory]
+
+  """"""
   GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
+
+  """"""
   GuiPresetSet(first: Int, offset: Int, substring: String): [GuiPreset]
+
+  """"""
   GuiSelectedPreset(UserId: ID, ComponentId: ID, ElementId: ID): GuiSelectedPreset
+
+  """"""
   GuiSelectedPresetSet(first: Int, offset: Int, substring: String): [GuiSelectedPreset]
 }
 
 """"""
 type DefectDetailDescription {
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """"""
   Description: String
   _metadata: Metadata
 }
 
 """"""
 type Defect {
+  """ЗаводРасплТехОб (Завод/Филиал)"""
   Plant: Plant
   PhotoSet: [DefectPhoto]
   DetailDescription: DefectDetailDescription
+
+  """Вид каталога"""
   ActivityCatalogTypeId: ID
+
+  """Комплексный критерий"""
   ComplexCriteria: String
+
+  """Текст длиной 40 знаков"""
   ExecutionMethodName: String
+
+  """Группа кодов"""
   ActivityGroupId: ID
+
+  """Группа кодов (Группа кодов причины изменения срока устранения)"""
   ActivityGroup: ActivityGroup
+
+  """Код причины переноса"""
   ActivityId: ID
+
+  """Код причины переноса (Код причины изменения срока устранения)"""
   Activity: Activity
+
+  """КрактТекст/код перен"""
   ActivityName: String
+
+  """Операция"""
   ActivityNumber: String
+
+  """Пояснение причины"""
   ActivityText: String
+
+  """Фото После"""
   AfterRepairPhotoCounter: Int
+
+  """Фото До"""
   BeforeRepairPhotoCounter: Int
+
+  """ДатЗакрДефекта"""
   ClosingDate: String
+
+  """МВЗ"""
   CostCenterId: ID
+
+  """Счетчик(внтр4)"""
   Counter: Int
+
+  """ВыполнЗапись"""
   CreateNotificNameAndPosition: String
+
+  """Создал"""
   CreateNotificPersonnelNumber: String
+
+  """Дата сообщения"""
   CreationDate: String
+
+  """Кат.крит.деф."""
   CriticalityCategory: String
+
+  """Виды дефектов"""
   DamageCatalogId: ID
+
+  """Группа кодов"""
   DamageGroupId: ID
+
+  """Группа кодов (Код группы неисправности/дефекта)"""
   DamageGroup: DamageGroup
+
+  """Группа дефектов"""
   DamageGroupName: String
+
+  """Код повреждения"""
   DamageId: ID
+
+  """Код повреждения (Код неисправности/дефекта)"""
   Damage: Damage
+
+  """Дефект"""
   DamageName: String
+
+  """Сообщение"""
   DefectId: ID
+
+  """Статус дефекта"""
   DefectStatusId: ID
+
+  """Подробный текст"""
   DetailedTextExists: Boolean
+
+  """ВыявившийДефект"""
   DetectDefectNameAndPosition: String
+
+  """ВыявДеф"""
   DetectDefectPersonnelNumber: String
+
+  """Подпись выявш.дефект"""
   DetectDefectPersonnelSignature: String
+
+  """Дата обнаруж."""
   DetectionDate: String
+
+  """ВремяНачалаНеис"""
   DetectionTime: String
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Тип оборудован."""
   EquipmentName: String
+
+  """Фото ЕО"""
   EquipmentPhotoCounter: Int
+
+  """Способ выполн.работ"""
   ExecutionMethod: String
+
+  """Исполнитель"""
   ExecutiveNameAndPosition: String
+
+  """Исполнитель"""
   ExecutivePersonnelNumber: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """Название"""
   FunctLocationName: String
+
+  """Фото ТМ"""
   FunctLocationPhotoCounter: Int
+
+  """Число"""
   IndexNumber: Int
+
+  """1-й срок устр. деф."""
   InitialDefectRepairTerm: String
+
+  """Номер объекта"""
   InternalDefectId: ID
+
+  """Срок устр. перенесен"""
   IsRepairDeadlinePostponed: Boolean
+
+  """Наряд-допуск"""
   JobOrder: String
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Отв. служба/РЭС"""
   LocationName: String
+
+  """УказУстранениеДефект"""
   ManagerInstructionOnDefectRepair: String
+
+  """Вид сообщения"""
   NotificationTypeId: ID
+
+  """Кому сообщено"""
   NotifiedNameAndPosition: String
+
+  """Кому сообщено"""
   NotifiedPersonnelNumber: String
+
+  """Кол-во просроч.дней"""
   NumberOfDaysOverdue: Int
+
+  """Кол-во дней переноса"""
   NumberOfDaysPostponed: Int
+
+  """Кол-во переносов"""
   NumberOfRepairPostponements: String
+
+  """Вид объекта (Тип объекта оборудования)"""
   ObjectType: ObjectType
+
+  """Вид объекта"""
   ObjectTypeId: ID
+
+  """Вид работы ТОРО"""
   OrderActivityTypeId: ID
+
+  """Заказ"""
   OrderId: ID
+
+  """Заказ (Заказы к дефектам)"""
   Order: Order
+
+  """Требование к фото"""
   PhotoRequirement: String
+
+  """ПланирующЗавод"""
   PlanningPlantId: ID
+
+  """ЗаводРасплТехОб"""
   PlantId: ID
+
+  """Филиал"""
   PlantName: String
+
+  """Позиция"""
   PositionId: ID
+
+  """Примечание"""
   PositionShortText: String
+
+  """Ссылочное сообщение"""
   ReferencedNotificationId: ID
+
+  """Ссылочное сообщение (Ссылочное сообщение)"""
   ReferencedNotification: ReferencedNotification
+
+  """Описание ссыл.сообщ."""
   ReferencedNotificationShortText: String
+
+  """Дата устранения"""
   RepairDate: String
+
+  """ПланСрокУстран"""
   RepairPlannedDate: String
+
+  """ПланДатаУстрАСУ"""
   RepairPlannedDateASUMRO: String
+
+  """Ответственный"""
   ResponsibleNameAndPosition: String
+
+  """Ответственный"""
   ResponsiblePersonnelNumber: String
+
+  """ОтвУстрДеф"""
   ResponsiblePersonnelSignature: String
+
+  """Статус"""
   Stat: String
+
+  """Статус"""
   Sttxt: String
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationId: ID
+
+  """Верхнеуровневое ТМ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
+
+  """Описание верх.ур. ТМ"""
   SupFunctLocationName: String
+
+  """Системный статус"""
   SystemStatusId: ID
+
+  """Системный статус (Системный статус дефекта)"""
   SystemStatus: SystemStatus
+
+  """Системный статус"""
   SystemStatusShortText: String
+
+  """Системный статус"""
   SystemStatusText: String
+
+  """Вид каталога"""
   TaskCatalogTypeId: ID
+
+  """Группа кодов"""
   TaskCodeGroupId: ID
+
+  """Краткий текст"""
   TaskCodeGroupName: String
+
+  """Код мероприятия"""
   TaskCodeId: ID
+
+  """ТекстКодаМеропр"""
   TaskCodeName: String
+
+  """Мероприятие"""
   TaskId: ID
+
+  """Мероприятие (Код производственной программы)"""
   Task: Task
+
+  """КомментарийКСтатусу"""
   UserStatusComment: String
+
+  """ПользоватСтатус"""
   UserStatusId: ID
+
+  """ПользоватСтатус (Пользовательский статус дефекта)"""
   UserStatus: UserStatus
+
+  """ПользоватСтатус"""
   UserStatusShortText: String
+
+  """ПользоватСтатус"""
   UserStatusText: String
+
+  """Напряжение"""
   Voltage: Float
+
+  """Напряжение"""
   VoltageClassId: ID
+
+  """Напряжение (Класс вольтажа для оборудования)"""
   VoltageClass: VoltageClass
+
+  """Пароль"""
   UserPassword: String
   _metadata: Metadata
 }
@@ -195,17 +550,30 @@ type Defect {
 """Завод/Филиал"""
 type Plant {
   LocationSet: [Location]
+
+  """Код филиала"""
   PlantId: ID
+
+  """Краткий текст"""
   ShortText: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
+  """Код филиала (Завод/Филиал)"""
   Plant: Plant
+
+  """Код филиала"""
   PlantId: ID
+
+  """Код местоположения"""
   LocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
@@ -219,11 +587,22 @@ type Metadata {
 
 """"""
 type DefectPhoto {
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """Имя файла"""
   Name: String
+
+  """Источник фото"""
   Source: String
+
+  """Строка"""
   InternalId: ID
+
+  """Тип фотографии"""
   PhotoType: String
   _metadata: Metadata
 }
@@ -231,16 +610,27 @@ type DefectPhoto {
 """Группа кодов причины изменения срока устранения"""
 type ActivityGroup {
   ActivitySet: [Activity]
+
+  """Группа кодов"""
   ActivityGroupId: ID
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }
 
 """Код причины изменения срока устранения"""
 type Activity {
+  """Код"""
   ActivityId: ID
+
+  """Группа кодов"""
   ActivityGroupId: ID
+
+  """Группа кодов (Группа кодов причины изменения срока устранения)"""
   ActivityGroup: ActivityGroup
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }
@@ -248,125 +638,266 @@ type Activity {
 """Код группы неисправности/дефекта"""
 type DamageGroup {
   DamageSet: [Damage]
+
+  """Группа кодов"""
   DamageGroupId: ID
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Краткий текст"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
   _metadata: Metadata
 }
 
 """Код неисправности/дефекта"""
 type Damage {
+  """Группа кодов (Код группы неисправности/дефекта)"""
   DamageGroup: DamageGroup
+
+  """Код"""
   DamageId: ID
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Группа кодов"""
   DamageGroupId: ID
+
+  """Краткий текст"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
   _metadata: Metadata
 }
 
 """Единица оборудования"""
 type Equipment {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Название"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """"""
   SupFunctLocationId: ID
+
+  """ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }
 
 """Техническое место"""
 type FunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Название"""
   SupFunctLocationName: String
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Название"""
   Name: String
+
+  """ВышестоящееТМ"""
   SupFunctLocationId: ID
+
+  """ВышестоящееТМ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }
 
 """Верхнеуровневое ТМ"""
 type SupFunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Тип объекта оборудования"""
 type ObjectType {
+  """Код типа"""
   ObjTypeId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Заказы к дефектам"""
 type Order {
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """Дефект в заказе"""
   DefectInOrder: Boolean
+
+  """Заказ"""
   OrderId: ID
+
+  """Краткий текст"""
   Text: String
+
+  """БазисСрокКонца"""
   BasicFinishDate: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """Название"""
   FunctLocationName: String
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Название"""
   EquipmentName: String
+
+  """Вид работы ТОРО"""
   MaintActivityTypeId: ID
   _metadata: Metadata
 }
 
 """Ссылочное сообщение"""
 type ReferencedNotification {
+  """Вид сообщения"""
   Type: String
+
+  """ТМ верх.уровня"""
   SupFunctLocationId: ID
+
+  """ТМ верх.уровня (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
+
+  """Сообщение"""
   ReferencedNotificationId: ID
+
+  """Описание"""
   Text: String
+
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Техническое место (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Единица оборудования (Единица оборудования)"""
   Equipment: Equipment
+
+  """Плановая дата проведения осмотра"""
   RequiredStartDate: String
   _metadata: Metadata
 }
 
 """Системный статус дефекта"""
 type SystemStatus {
+  """Код пользов. статуса"""
   SysStatusId: ID
+
+  """Сокр. название"""
   ShortName: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Код производственной программы"""
 type Task {
+  """Код"""
   TaskId: ID
+
+  """Группа кодов"""
   TaskGroupId: ID
+
+  """Группа кодов (Код группы производственной программы)"""
   TaskGroup: TaskGroup
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }
@@ -374,7 +905,11 @@ type Task {
 """Код группы производственной программы"""
 type TaskGroup {
   TaskSet: [Task]
+
+  """Группа кодов мероприятий"""
   TaskGroupId: ID
+
+  """Код мероприятия"""
   Name: String
   _metadata: Metadata
 }
@@ -384,24 +919,51 @@ type UserStatus {
   AvailableUserStatusSet: [UserStatus]
   PropertyConfigSet: [PropertyConfig]
   TransitionSet: [UserStatusTransition]
+
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """Код пользов. статуса"""
   UsrStatusId: ID
+
+  """Сокр. название"""
   ShortName: String
+
+  """Название"""
   Name: String
+
+  """"""
   NameAsAction: String
   _metadata: Metadata
 }
 
 """Конфигурация свойства сущности для UI"""
 type PropertyConfig {
+  """Из статуса"""
   StatusFrom: String
+
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """Ид свойства"""
   PropertyId: ID
+
+  """В статус"""
   StatusTo: String
+
+  """Свой-во видимое"""
   Visible: Boolean
+
+  """Редактируемое"""
   Editable: Boolean
+
+  """Обязательное"""
   Required: Boolean
   _metadata: Metadata
 }
@@ -409,76 +971,152 @@ type PropertyConfig {
 """"""
 type UserStatusTransition {
   PropertyConfigSet: [PropertyConfig]
+
+  """Из статуса"""
   StatusFrom: String
+
+  """Масс обраб доступна"""
   MassEditingAvailability: Boolean
+
+  """Сообщение"""
   DefectId: ID
+
+  """Сообщение ()"""
   Defect: Defect
+
+  """В статус"""
   StatusTo: String
+
+  """Группа данных"""
   RequiredDataGroup: String
   _metadata: Metadata
 }
 
 """Класс вольтажа для оборудования"""
 type VoltageClass {
+  """Код вольтажа"""
   VoltageId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Сообщение о дефекте"""
 type DefectNotification {
+  """Вид сообщения"""
   Type: String
+
+  """Сообщение"""
   DefectNotificationId: ID
+
+  """Описание"""
   Text: String
+
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Техническое место (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Единица оборудования (Единица оборудования)"""
   Equipment: Equipment
+
+  """Плановая дата устранения дефекта"""
   RequiredStartDate: String
   _metadata: Metadata
 }
 
 """Ответственный"""
 type PersonnelNumber {
+  """Завод"""
   CompanyCode: String
+
+  """Табельный номер"""
   PersonnelNumberId: ID
+
+  """Фамилия"""
   Surname: String
+
+  """Имя"""
   Name: String
+
+  """Отчество"""
   MiddleName: String
+
+  """Должность"""
   Function: String
   _metadata: Metadata
 }
 
 """Колонка таблицы GUI с настройками по умолчанию"""
 type GuiColumn {
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Путь колонки"""
   Path: String
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Индекс колонки"""
   Index: Int
+
+  """Код колонки"""
   ColumnId: ID
+
+  """Имя, заголовок"""
   Name: String
+
+  """Ширина"""
   Width: String
+
+  """Видимость"""
   Visible: Boolean
   _metadata: Metadata
 }
 
 """"""
 type UserPermission {
+  """Ид полномочия"""
   Id: ID
+
+  """Полномочие доступно"""
   IsAvailable: Boolean
   _metadata: Metadata
 }
 
 """"""
 type UserParameter {
+  """Пользователь"""
   UserId: ID
+
+  """Пользователь (Пользователь)"""
   User: User
+
+  """ИдПараметра"""
   Id: ID
+
+  """ЗначПараметра"""
   Value: String
+
+  """Краткое описание"""
   Name: String
   _metadata: Metadata
 }
@@ -486,49 +1124,82 @@ type UserParameter {
 """Пользователь"""
 type User {
   ParameterSet: [UserParameter]
+
+  """Код пользователя"""
   UserId: ID
+
+  """Имя"""
   Name: String
   _metadata: Metadata
 }
 
 """"""
 type WebLink {
+  """Строка"""
   Url: String
   _metadata: Metadata
 }
 
 """"""
 type Setting {
+  """"""
   Key: String
+
+  """"""
   Value: String
   _metadata: Metadata
 }
 
 """"""
 type TransactionLink {
+  """"""
   BusinessObjectType: String
+
+  """"""
   WebguiCallCommand: String
   _metadata: Metadata
 }
 
 """"""
 type ImageDocType {
+  """Расширение имени"""
   FileExtension: String
+
+  """MIME-тип"""
   MimeType: String
   _metadata: Metadata
 }
 
 """Аналитическая информация о статусах дефектов"""
 type DefectUserStatusHistory {
+  """Дефект"""
   DefectId: ID
+
+  """Дефект ()"""
   Defect: Defect
+
+  """Статус"""
   StatusName: String
+
+  """Дата установки статуса"""
   StatusSetDate: String
+
+  """Время установки статуса"""
   StatusSetTime: String
+
+  """Кол-во дней с момента установки статуса"""
   DaysAfterStatus: Int
+
+  """Пользователь"""
   UserId: ID
+
+  """Пользователь (Пользователь)"""
   User: User
+
+  """ФИО пользователя"""
   UserName: String
+
+  """Должность"""
   UserFunction: String
   _metadata: Metadata
 }
@@ -536,13 +1207,29 @@ type DefectUserStatusHistory {
 """"""
 type GuiPreset {
   SelectedPresetSet: [GuiSelectedPreset]
+
+  """Пресет публичный"""
   Public: Boolean
+
+  """Код пресета"""
   PresetId: ID
+
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Код пользователя"""
   UserId: ID
+
+  """Код пользователя (Пользователь)"""
   User: User
+
+  """Название пресета"""
   Name: String
+
+  """Данные пресета"""
   Value: String
   _metadata: Metadata
 }
@@ -550,10 +1237,20 @@ type GuiPreset {
 """"""
 type GuiSelectedPreset {
   Preset: [GuiSelectedPreset]
+
+  """Код пользователя"""
   UserId: ID
+
+  """Код пользователя (Пользователь)"""
   User: User
+
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Код пресета"""
   PresetId: ID
   _metadata: Metadata
 }

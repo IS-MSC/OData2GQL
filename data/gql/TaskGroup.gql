@@ -1,21 +1,35 @@
 type Query {
+  """Код группы производственной программы"""
   TaskGroup(TaskGroupId: ID): TaskGroup
+
+  """Код группы производственной программы"""
   TaskGroupSet(first: Int, offset: Int, substring: String): [TaskGroup]
 }
 
 """Код группы производственной программы"""
 type TaskGroup {
   TaskSet: [Task]
+
+  """Группа кодов мероприятий"""
   TaskGroupId: ID
+
+  """Код мероприятия"""
   Name: String
   _metadata: Metadata
 }
 
 """Код производственной программы"""
 type Task {
+  """Код"""
   TaskId: ID
+
+  """Группа кодов"""
   TaskGroupId: ID
+
+  """Группа кодов (Код группы производственной программы)"""
   TaskGroup: TaskGroup
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }

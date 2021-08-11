@@ -1,11 +1,17 @@
 type Query {
+  """"""
   Setting(Key: ID): Setting
+
+  """"""
   SettingSet(first: Int, offset: Int, substring: String): [Setting]
 }
 
 """"""
 type Setting {
+  """"""
   Key: String
+
+  """"""
   Value: String
   _metadata: Metadata
 }

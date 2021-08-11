@@ -1,21 +1,35 @@
 type Query {
+  """Группа кодов причины изменения срока устранения"""
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
+
+  """Группа кодов причины изменения срока устранения"""
   ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
 }
 
 """Группа кодов причины изменения срока устранения"""
 type ActivityGroup {
   ActivitySet: [Activity]
+
+  """Группа кодов"""
   ActivityGroupId: ID
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }
 
 """Код причины изменения срока устранения"""
 type Activity {
+  """Код"""
   ActivityId: ID
+
+  """Группа кодов"""
   ActivityGroupId: ID
+
+  """Группа кодов (Группа кодов причины изменения срока устранения)"""
   ActivityGroup: ActivityGroup
+
+  """Краткий текст"""
   Name: String
   _metadata: Metadata
 }

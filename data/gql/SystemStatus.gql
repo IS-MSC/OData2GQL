@@ -1,12 +1,20 @@
 type Query {
+  """Системный статус дефекта"""
   SystemStatus(SysStatusId: ID): SystemStatus
+
+  """Системный статус дефекта"""
   SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
 }
 
 """Системный статус дефекта"""
 type SystemStatus {
+  """Код пользов. статуса"""
   SysStatusId: ID
+
+  """Сокр. название"""
   ShortName: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }

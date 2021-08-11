@@ -1,11 +1,17 @@
 type Query {
+  """"""
   TransactionLink(BusinessObjectType: ID): TransactionLink
+
+  """"""
   TransactionLinkSet(first: Int, offset: Int, substring: String): [TransactionLink]
 }
 
 """"""
 type TransactionLink {
+  """"""
   BusinessObjectType: String
+
+  """"""
   WebguiCallCommand: String
   _metadata: Metadata
 }

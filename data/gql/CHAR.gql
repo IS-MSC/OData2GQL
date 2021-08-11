@@ -1,0 +1,48 @@
+type Query {
+  """"""
+  CHAR(Key: ID, Name: ID): CHAR
+
+  """"""
+  CHARSet(first: Int, offset: Int, substring: String): [CHAR]
+}
+
+""""""
+type CHAR {
+  """Не заполн.аванс"""
+  Interval: Boolean
+
+  """"""
+  Key: String
+
+  """"""
+  ClassType: String
+
+  """"""
+  Precision: Int
+
+  """"""
+  Type: String
+
+  """"""
+  ValueHigh: String
+
+  """"""
+  ValueLow: String
+
+  """"""
+  Descr: String
+
+  """"""
+  Format: String
+
+  """"""
+  Name: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

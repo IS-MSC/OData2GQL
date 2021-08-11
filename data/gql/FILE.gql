@@ -1,15 +1,15 @@
 type Query {
   """"""
-  WebLink(Url: ID): WebLink
+  FILE(FileName: ID): FILE
 
   """"""
-  WebLinkSet(first: Int, offset: Int, substring: String): [WebLink]
+  FILESet(first: Int, offset: Int, substring: String): [FILE]
 }
 
 """"""
-type WebLink {
-  """Строка"""
-  Url: String
+type FILE {
+  """Текст"""
+  FileName: String
   _metadata: Metadata
 }
 

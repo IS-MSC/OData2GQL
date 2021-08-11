@@ -1,0 +1,24 @@
+type Query {
+  """"""
+  SETTINGS(Name: ID): SETTINGS
+
+  """"""
+  SETTINGSSet(first: Int, offset: Int, substring: String): [SETTINGS]
+}
+
+""""""
+type SETTINGS {
+  """Текст"""
+  Name: String
+
+  """Текст длины 1000"""
+  Value: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

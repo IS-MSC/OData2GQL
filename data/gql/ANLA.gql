@@ -1,0 +1,33 @@
+type Query {
+  """"""
+  ANLA(Anln2: ID, Bukrs: ID, Anln1: ID): ANLA
+
+  """"""
+  ANLASet(first: Int, offset: Int, substring: String): [ANLA]
+}
+
+""""""
+type ANLA {
+  """Субномер"""
+  Anln2: String
+
+  """БЕ"""
+  Bukrs: String
+
+  """Инвентарный №"""
+  Invnr: String
+
+  """Название"""
+  Txt50: String
+
+  """ОснСредство"""
+  Anln1: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

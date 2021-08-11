@@ -1,11 +1,17 @@
 type Query {
+  """Тип объекта оборудования"""
   ObjectType(ObjTypeId: ID): ObjectType
+
+  """Тип объекта оборудования"""
   ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
 }
 
 """Тип объекта оборудования"""
 type ObjectType {
+  """Код типа"""
   ObjTypeId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }

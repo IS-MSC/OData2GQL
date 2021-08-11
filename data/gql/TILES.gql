@@ -1,0 +1,47 @@
+type Query {
+  """"""
+  TILES(Tileid: ID): TILES
+
+  """"""
+  TILESSet(first: Int, offset: Int, substring: String): [TILES]
+}
+
+""""""
+type TILES {
+  CHILDREN: [TILES]
+
+  """"""
+  Iconname: String
+
+  """"""
+  Title: String
+
+  """"""
+  Parenttileid: Int
+
+  """"""
+  Tileid: Int
+
+  """"""
+  Actiontype: Int
+
+  """"""
+  Tiletype: Int
+
+  """"""
+  Tcode: String
+
+  """"""
+  Sortorder: Int
+
+  """"""
+  Content: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

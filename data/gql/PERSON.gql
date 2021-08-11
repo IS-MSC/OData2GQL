@@ -1,0 +1,36 @@
+type Query {
+  """"""
+  PERSON(Bukrs: ID, Pernr: ID): PERSON
+
+  """"""
+  PERSONSet(first: Int, offset: Int, substring: String): [PERSON]
+}
+
+""""""
+type PERSON {
+  """БЕ"""
+  Bukrs: String
+
+  """Табельный номер"""
+  Pernr: String
+
+  """Фамилия"""
+  Nachn: String
+
+  """Имя"""
+  Vorna: String
+
+  """Отчество"""
+  Midnm: String
+
+  """Должность"""
+  Stext: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

@@ -1,17 +1,35 @@
 type Query {
+  """Колонка таблицы GUI с настройками по умолчанию"""
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
+
+  """Колонка таблицы GUI с настройками по умолчанию"""
   GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
 }
 
 """Колонка таблицы GUI с настройками по умолчанию"""
 type GuiColumn {
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Путь колонки"""
   Path: String
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Индекс колонки"""
   Index: Int
+
+  """Код колонки"""
   ColumnId: ID
+
+  """Имя, заголовок"""
   Name: String
+
+  """Ширина"""
   Width: String
+
+  """Видимость"""
   Visible: Boolean
   _metadata: Metadata
 }

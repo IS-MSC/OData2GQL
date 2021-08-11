@@ -1,0 +1,33 @@
+type Query {
+  """"""
+  FIELDVALUE(KEY: ID, VALUEID: ID, TABLE: ID, FIELD: ID): FIELDVALUE
+
+  """"""
+  FIELDVALUESet(first: Int, offset: Int, substring: String): [FIELDVALUE]
+}
+
+""""""
+type FIELDVALUE {
+  """"""
+  KEY: String
+
+  """"""
+  VALUEID: String
+
+  """"""
+  VALUE: String
+
+  """"""
+  TABLE: String
+
+  """"""
+  FIELD: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

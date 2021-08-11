@@ -1,22 +1,38 @@
 type Query {
+  """Завод/Филиал"""
   Plant(PlantId: ID): Plant
+
+  """Завод/Филиал"""
   PlantSet(first: Int, offset: Int, substring: String): [Plant]
 }
 
 """Завод/Филиал"""
 type Plant {
   LocationSet: [Location]
+
+  """Код филиала"""
   PlantId: ID
+
+  """Краткий текст"""
   ShortText: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
+  """Код филиала (Завод/Филиал)"""
   Plant: Plant
+
+  """Код филиала"""
   PlantId: ID
+
+  """Код местоположения"""
   LocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }

@@ -1,0 +1,24 @@
+type Query {
+  """"""
+  TCODEINST(Tcode: ID): TCODEINST
+
+  """"""
+  TCODEINSTSet(first: Int, offset: Int, substring: String): [TCODEINST]
+}
+
+""""""
+type TCODEINST {
+  """Код транзакции"""
+  Tcode: String
+
+  """Текст длины 1000"""
+  Instructionlink: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

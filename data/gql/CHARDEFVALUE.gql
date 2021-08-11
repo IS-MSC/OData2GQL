@@ -1,0 +1,30 @@
+type Query {
+  """"""
+  CHARDEFVALUE(Atnam: ID, Atzhl: ID): CHARDEFVALUE
+
+  """"""
+  CHARDEFVALUESet(first: Int, offset: Int, substring: String): [CHARDEFVALUE]
+}
+
+""""""
+type CHARDEFVALUE {
+  """Признак"""
+  Atnam: String
+
+  """ВнутренСчетчик"""
+  Atzhl: String
+
+  """Внутр. признак"""
+  Atinn: String
+
+  """ЗнчПризнака"""
+  Atwrt: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

@@ -1,18 +1,37 @@
 type Query {
+  """"""
   GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
+
+  """"""
   GuiPresetSet(first: Int, offset: Int, substring: String): [GuiPreset]
 }
 
 """"""
 type GuiPreset {
   SelectedPresetSet: [GuiSelectedPreset]
+
+  """Пресет публичный"""
   Public: Boolean
+
+  """Код пресета"""
   PresetId: ID
+
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Код пользователя"""
   UserId: ID
+
+  """Код пользователя (Пользователь)"""
   User: User
+
+  """Название пресета"""
   Name: String
+
+  """Данные пресета"""
   Value: String
   _metadata: Metadata
 }
@@ -20,10 +39,20 @@ type GuiPreset {
 """"""
 type GuiSelectedPreset {
   Preset: [GuiSelectedPreset]
+
+  """Код пользователя"""
   UserId: ID
+
+  """Код пользователя (Пользователь)"""
   User: User
+
+  """Компонент приложения"""
   ComponentId: ID
+
+  """Элемент интерфейса"""
   ElementId: ID
+
+  """Код пресета"""
   PresetId: ID
   _metadata: Metadata
 }
@@ -31,17 +60,30 @@ type GuiSelectedPreset {
 """Пользователь"""
 type User {
   ParameterSet: [UserParameter]
+
+  """Код пользователя"""
   UserId: ID
+
+  """Имя"""
   Name: String
   _metadata: Metadata
 }
 
 """"""
 type UserParameter {
+  """Пользователь"""
   UserId: ID
+
+  """Пользователь (Пользователь)"""
   User: User
+
+  """ИдПараметра"""
   Id: ID
+
+  """ЗначПараметра"""
   Value: String
+
+  """Краткое описание"""
   Name: String
   _metadata: Metadata
 }

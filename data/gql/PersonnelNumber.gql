@@ -1,15 +1,29 @@
 type Query {
+  """Ответственный"""
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
+
+  """Ответственный"""
   PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
 }
 
 """Ответственный"""
 type PersonnelNumber {
+  """Завод"""
   CompanyCode: String
+
+  """Табельный номер"""
   PersonnelNumberId: ID
+
+  """Фамилия"""
   Surname: String
+
+  """Имя"""
   Name: String
+
+  """Отчество"""
   MiddleName: String
+
+  """Должность"""
   Function: String
   _metadata: Metadata
 }

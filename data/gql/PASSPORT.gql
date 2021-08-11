@@ -1,0 +1,27 @@
+type Query {
+  """"""
+  PASSPORT(FuncLocId: ID, Editable: ID): PASSPORT
+
+  """"""
+  PASSPORTSet(first: Int, offset: Int, substring: String): [PASSPORT]
+}
+
+""""""
+type PASSPORT {
+  """"""
+  FuncLocId: ID
+
+  """Не заполн.аванс"""
+  Editable: Boolean
+
+  """"""
+  Passport: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

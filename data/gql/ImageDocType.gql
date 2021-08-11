@@ -1,11 +1,17 @@
 type Query {
+  """"""
   ImageDocType(FileExtension: ID): ImageDocType
+
+  """"""
   ImageDocTypeSet(first: Int, offset: Int, substring: String): [ImageDocType]
 }
 
 """"""
 type ImageDocType {
+  """Расширение имени"""
   FileExtension: String
+
+  """MIME-тип"""
   MimeType: String
   _metadata: Metadata
 }

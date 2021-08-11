@@ -1,34 +1,75 @@
 type Query {
+  """Ссылочное сообщение"""
   ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
+
+  """Ссылочное сообщение"""
   ReferencedNotificationSet(first: Int, offset: Int, substring: String): [ReferencedNotification]
 }
 
 """Ссылочное сообщение"""
 type ReferencedNotification {
+  """Вид сообщения"""
   Type: String
+
+  """ТМ верх.уровня"""
   SupFunctLocationId: ID
+
+  """ТМ верх.уровня (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
+
+  """Сообщение"""
   ReferencedNotificationId: ID
+
+  """Описание"""
   Text: String
+
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Техническое место (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Единица оборудования (Единица оборудования)"""
   Equipment: Equipment
+
+  """Плановая дата проведения осмотра"""
   RequiredStartDate: String
   _metadata: Metadata
 }
 
 """Верхнеуровневое ТМ"""
 type SupFunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
@@ -36,17 +77,30 @@ type SupFunctLocation {
 """Завод/Филиал"""
 type Plant {
   LocationSet: [Location]
+
+  """Код филиала"""
   PlantId: ID
+
+  """Краткий текст"""
   ShortText: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
+  """Код филиала (Завод/Филиал)"""
   Plant: Plant
+
+  """Код филиала"""
   PlantId: ID
+
+  """Код местоположения"""
   LocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
@@ -60,29 +114,65 @@ type Metadata {
 
 """Техническое место"""
 type FunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Название"""
   SupFunctLocationName: String
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Название"""
   Name: String
+
+  """ВышестоящееТМ"""
   SupFunctLocationId: ID
+
+  """ВышестоящееТМ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }
 
 """Единица оборудования"""
 type Equipment {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Название"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """"""
   SupFunctLocationId: ID
+
+  """ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }

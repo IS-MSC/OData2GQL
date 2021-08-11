@@ -1,15 +1,29 @@
 type Query {
+  """Верхнеуровневое ТМ"""
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
 }
 
 """Верхнеуровневое ТМ"""
 type SupFunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
@@ -17,17 +31,30 @@ type SupFunctLocation {
 """Завод/Филиал"""
 type Plant {
   LocationSet: [Location]
+
+  """Код филиала"""
   PlantId: ID
+
+  """Краткий текст"""
   ShortText: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
+  """Код филиала (Завод/Филиал)"""
   Plant: Plant
+
+  """Код филиала"""
   PlantId: ID
+
+  """Код местоположения"""
   LocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }

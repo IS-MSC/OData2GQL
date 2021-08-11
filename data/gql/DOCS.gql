@@ -1,0 +1,54 @@
+type Query {
+  """"""
+  DOCS(DocId: ID): DOCS
+
+  """"""
+  DOCSSet(first: Int, offset: Int, substring: String): [DOCS]
+}
+
+""""""
+type DOCS {
+  """Идентификатор класса"""
+  DocClass: String
+
+  """Id Документа"""
+  DocId: ID
+
+  """Код класса"""
+  ClassCode: String
+
+  """ИД класса"""
+  ClassId: ID
+
+  """Наименование класса"""
+  ClassName: String
+
+  """Название документа"""
+  DocName: String
+
+  """Штрихкод"""
+  Barcode: String
+
+  """Автор изменения"""
+  CreatedBy: String
+
+  """Дата"""
+  CreatedOn: String
+
+  """Тип объекта"""
+  Objtype: String
+
+  """Ключ"""
+  Objkey: String
+
+  """БЕ"""
+  Bukrs: String
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

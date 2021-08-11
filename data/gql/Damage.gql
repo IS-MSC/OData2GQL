@@ -1,17 +1,35 @@
 type Query {
+  """Код неисправности/дефекта"""
   Damage(DamageId: ID, DamageGroupId: ID): Damage
+
+  """Код неисправности/дефекта"""
   DamageSet(first: Int, offset: Int, substring: String): [Damage]
 }
 
 """Код неисправности/дефекта"""
 type Damage {
+  """Группа кодов (Код группы неисправности/дефекта)"""
   DamageGroup: DamageGroup
+
+  """Код"""
   DamageId: ID
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Группа кодов"""
   DamageGroupId: ID
+
+  """Краткий текст"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
   _metadata: Metadata
 }
@@ -19,26 +37,57 @@ type Damage {
 """Код группы неисправности/дефекта"""
 type DamageGroup {
   DamageSet: [Damage]
+
+  """Группа кодов"""
   DamageGroupId: ID
+
+  """Ед. оборудов."""
   EquipmentId: ID
+
+  """Ед. оборудов. (Единица оборудования)"""
   Equipment: Equipment
+
+  """Краткий текст"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
   _metadata: Metadata
 }
 
 """Единица оборудования"""
 type Equipment {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Единица оборудования"""
   EquipmentId: ID
+
+  """Название"""
   Name: String
+
+  """ТехнМесто"""
   FunctLocationId: ID
+
+  """ТехнМесто (Техническое место)"""
   FunctLocation: FunctLocation
+
+  """"""
   SupFunctLocationId: ID
+
+  """ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }
@@ -46,17 +95,30 @@ type Equipment {
 """Завод/Филиал"""
 type Plant {
   LocationSet: [Location]
+
+  """Код филиала"""
   PlantId: ID
+
+  """Краткий текст"""
   ShortText: String
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
 
 """Местоположение"""
 type Location {
+  """Код филиала (Завод/Филиал)"""
   Plant: Plant
+
+  """Код филиала"""
   PlantId: ID
+
+  """Код местоположения"""
   LocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
@@ -70,25 +132,53 @@ type Metadata {
 
 """Техническое место"""
 type FunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Название"""
   SupFunctLocationName: String
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Техническое место"""
   FunctLocationId: ID
+
+  """Название"""
   Name: String
+
+  """ВышестоящееТМ"""
   SupFunctLocationId: ID
+
+  """ВышестоящееТМ (Верхнеуровневое ТМ)"""
   SupFunctLocation: SupFunctLocation
   _metadata: Metadata
 }
 
 """Верхнеуровневое ТМ"""
 type SupFunctLocation {
+  """Завод расположения тех. объекта"""
   PlantId: ID
+
+  """Завод расположения тех. объекта (Завод/Филиал)"""
   Plant: Plant
+
+  """Местоположение"""
   LocationId: ID
+
+  """Местоположение (Местоположение)"""
   Location: Location
+
+  """Верхнеуровневое ТМ"""
   SupFunctLocationId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }

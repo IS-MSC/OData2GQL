@@ -1,0 +1,35 @@
+type Query {
+  """"""
+  DOCCLASS(ClassId: ID): DOCCLASS
+
+  """"""
+  DOCCLASSSet(first: Int, offset: Int, substring: String): [DOCCLASS]
+}
+
+""""""
+type DOCCLASS {
+  CHILDREN: [DOCCLASS]
+
+  """ИД класса"""
+  ClassId: ID
+
+  """Идентификатор класса"""
+  DocClass: String
+
+  """Код класса"""
+  ClassCode: String
+
+  """Наименование класса"""
+  ClassName: String
+
+  """Родительский ИД"""
+  ParentId: ID
+  _metadata: Metadata
+}
+
+type Metadata {
+  id: String
+  uri: String
+  media_src: String
+  edit_media: String
+}

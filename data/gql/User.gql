@@ -1,22 +1,38 @@
 type Query {
+  """Пользователь"""
   User(UserId: ID): User
+
+  """Пользователь"""
   UserSet(first: Int, offset: Int, substring: String): [User]
 }
 
 """Пользователь"""
 type User {
   ParameterSet: [UserParameter]
+
+  """Код пользователя"""
   UserId: ID
+
+  """Имя"""
   Name: String
   _metadata: Metadata
 }
 
 """"""
 type UserParameter {
+  """Пользователь"""
   UserId: ID
+
+  """Пользователь (Пользователь)"""
   User: User
+
+  """ИдПараметра"""
   Id: ID
+
+  """ЗначПараметра"""
   Value: String
+
+  """Краткое описание"""
   Name: String
   _metadata: Metadata
 }

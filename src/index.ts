@@ -24,7 +24,8 @@ import console from "console";
 import merge from "lodash.merge";
 import { createDataSource } from "./DataSource";
 const serviceURL =
-	"http://192.168.1.176:8080/sap/opu/odata/sap/ZPM_DL_MAIN_SRV";
+	"http://192.168.1.176:8080/sap/opu/odata/sap/ZPM_DL_MAIN_SRV/";
+const serviceName = "ZPM_DL_MAIN_SRV";
 
 const getMetadata = async () => {
 	const metadata = await fetch(serviceURL + "/$metadata").then((response) =>
@@ -107,7 +108,7 @@ const main = async () => {
 
 const DataSource = createDataSource(serviceURL);
 interface ResolverContext {
-	dataSources: { oData: any };
+	dataSources: { oData: InstanceType<typeof DataSource> };
 }
 
 const makeNavigationResolver = (entity: Entity, field: string) => {
@@ -121,8 +122,8 @@ const makeNavigationResolver = (entity: Entity, field: string) => {
 				return `${key}='${parent[key]}'`;
 			})
 			.join(",");
-		const url = `${serviceURL}/${entity.name}Set(${query})/${field}?$format=json`;
-		console.log(url);
+		const url = `${entity.name}Set(${query})/${field}`;
+		// console.log(url);
 		const response = await context.dataSources.oData.request(url);
 
 		return response;
@@ -132,6 +133,7 @@ const makeNavigationResolver = (entity: Entity, field: string) => {
 
 interface GQLField {
 	type: GraphQLOutputType;
+	description?: string;
 	resolve?: (parent: any, params: any, context: any) => any;
 }
 
@@ -145,6 +147,7 @@ const makePropertiesFields = (entity: Entity) => {
 			type: property.name.includes("Id")
 				? GraphQLID
 				: castTypesToGQL(property.type),
+			description: property.label,
 		};
 		if (property.name.includes("Id")) {
 			const name = property.name.replace("Id", "");
@@ -152,6 +155,8 @@ const makePropertiesFields = (entity: Entity) => {
 				accomulator[name] = {
 					type: EntityMap[name].gqlType!,
 					resolve: makeParentResolver(EntityMap[name].entity),
+					description:
+						property.label + " (" + EntityMap[name].entity.description + ")",
 				};
 			}
 		}
@@ -228,7 +233,7 @@ const makeKeysResolver = (entity: Entity) => {
 			})
 			.join(",");
 		const response = await context.dataSources.oData.request(
-			`${serviceURL}/${entity.name}Set(${query})?$format=json`
+			`${entity.name}Set(${query})`
 		);
 		return response;
 	};
@@ -247,7 +252,7 @@ const makeParentResolver = (entity: Entity) => {
 			})
 			.join(",");
 		const response = await context.dataSources.oData.request(
-			`${serviceURL}/${entity.name}Set(${query})?$format=json`
+			`${entity.name}Set(${query})`
 		);
 
 		return response;
@@ -268,7 +273,7 @@ const makeSetResolver = (entity: Entity) => {
 		]
 			.filter((v) => !!v)
 			.join("&");
-		const url = `${serviceURL}/${entity.name}Set?$format=json&${query}`;
+		const url = `${entity.name}Set&${query}`;
 		console.log(url);
 		const response = await context.dataSources.oData.request(url);
 
@@ -281,6 +286,7 @@ const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 	const fields: { [index: string]: any } = {};
 	const field = {
 		type: type,
+		description: entity.description,
 		args: entity.keys.reduce((a, k) => {
 			a[k] = {
 				type: GraphQLID,
@@ -291,6 +297,7 @@ const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 	};
 	const setField = {
 		type: new GraphQLList(type),
+		description: entity.description,
 		args: ["first", "offset", "substring"].reduce((a, k) => {
 			a[k] = {
 				type: k === "substring" ? GraphQLString : GraphQLInt,
@@ -347,10 +354,10 @@ const makeEntity = (raw: ODataEntity): Entity => {
 			toArray(raw.NavigationProperty).map((n) => {
 				const association =
 					AssociationMap[
-						n._attributes.Relationship.replace("ZPM_DL_MAIN_SRV.", "")
+						n._attributes.Relationship.replace(serviceName + ".", "")
 					];
 				return {
-					name: n._attributes.Name.replace("ZPM_DL_MAIN_SRV.", ""),
+					name: n._attributes.Name.replace(serviceName + ".", ""),
 					type: association.to,
 					isSet: association.isSet,
 				};
@@ -375,7 +382,7 @@ const makeAssociation = (raw: ODataAssociation): Association => {
 	const toRaw = raw.End.find((e) =>
 		e._attributes.Role.includes("ToRole_")
 	)!._attributes;
-	const to = toRaw.Type.replace("ZPM_DL_MAIN_SRV.", "");
+	const to = toRaw.Type.replace(serviceName + ".", "");
 	const isSet = toRaw.Multiplicity == "*";
 	const association = {
 		name: raw._attributes.Name,

@@ -1,11 +1,17 @@
 type Query {
+  """Класс вольтажа для оборудования"""
   VoltageClass(VoltageId: ID): VoltageClass
+
+  """Класс вольтажа для оборудования"""
   VoltageClassSet(first: Int, offset: Int, substring: String): [VoltageClass]
 }
 
 """Класс вольтажа для оборудования"""
 type VoltageClass {
+  """Код вольтажа"""
   VoltageId: ID
+
+  """Название"""
   Name: String
   _metadata: Metadata
 }
