@@ -3,7 +3,7 @@ type Query {
   DamageGroup(DamageGroupId: ID): DamageGroup
 
   """Код группы неисправности/дефекта"""
-  DamageGroupSet(first: Int, offset: Int, substring: String): [DamageGroup]
+  DamageGroupSet(first: Int, offset: Int, DamageGroupIdSubstring: String, EquipmentIdSubstring: String, NameSubstring: String, FunctLocationIdSubstring: String): [DamageGroup]
 }
 
 """Код группы неисправности/дефекта"""

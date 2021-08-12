@@ -3,7 +3,7 @@ type Query {
   DefectNotification(DefectNotificationId: ID): DefectNotification
 
   """Сообщение о дефекте"""
-  DefectNotificationSet(first: Int, offset: Int, substring: String): [DefectNotification]
+  DefectNotificationSet(first: Int, offset: Int, TypeSubstring: String, DefectNotificationIdSubstring: String, TextSubstring: String, PlantIdSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, EquipmentIdSubstring: String): [DefectNotification]
 }
 
 """Сообщение о дефекте"""

@@ -3,7 +3,7 @@ type Query {
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
 
   """Ответственный"""
-  PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
+  PersonnelNumberSet(first: Int, offset: Int, CompanyCodeSubstring: String, PersonnelNumberIdSubstring: String, SurnameSubstring: String, NameSubstring: String, MiddleNameSubstring: String, FunctionSubstring: String): [PersonnelNumber]
 }
 
 """Ответственный"""

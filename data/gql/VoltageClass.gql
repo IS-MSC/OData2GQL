@@ -3,7 +3,7 @@ type Query {
   VoltageClass(VoltageId: ID): VoltageClass
 
   """Класс вольтажа для оборудования"""
-  VoltageClassSet(first: Int, offset: Int, substring: String): [VoltageClass]
+  VoltageClassSet(first: Int, offset: Int, NameSubstring: String): [VoltageClass]
 }
 
 """Класс вольтажа для оборудования"""

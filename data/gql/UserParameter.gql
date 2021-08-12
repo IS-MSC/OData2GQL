@@ -3,7 +3,7 @@ type Query {
   UserParameter(UserId: ID, Id: ID): UserParameter
 
   """"""
-  UserParameterSet(first: Int, offset: Int, substring: String): [UserParameter]
+  UserParameterSet(first: Int, offset: Int, UserIdSubstring: String, IdSubstring: String, ValueSubstring: String, NameSubstring: String): [UserParameter]
 }
 
 """"""

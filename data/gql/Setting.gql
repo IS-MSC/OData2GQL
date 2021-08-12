@@ -3,7 +3,7 @@ type Query {
   Setting(Key: ID): Setting
 
   """"""
-  SettingSet(first: Int, offset: Int, substring: String): [Setting]
+  SettingSet(first: Int, offset: Int, KeySubstring: String, ValueSubstring: String): [Setting]
 }
 
 """"""

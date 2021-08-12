@@ -3,7 +3,7 @@ type Query {
   DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
 
   """Аналитическая информация о статусах дефектов"""
-  DefectUserStatusHistorySet(first: Int, offset: Int, substring: String): [DefectUserStatusHistory]
+  DefectUserStatusHistorySet(first: Int, offset: Int, DefectIdSubstring: String, StatusNameSubstring: String, UserIdSubstring: String, UserNameSubstring: String, UserFunctionSubstring: String): [DefectUserStatusHistory]
 }
 
 """Аналитическая информация о статусах дефектов"""

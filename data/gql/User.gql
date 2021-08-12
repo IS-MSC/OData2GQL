@@ -3,7 +3,7 @@ type Query {
   User(UserId: ID): User
 
   """Пользователь"""
-  UserSet(first: Int, offset: Int, substring: String): [User]
+  UserSet(first: Int, offset: Int, UserIdSubstring: String, NameSubstring: String): [User]
 }
 
 """Пользователь"""

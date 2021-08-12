@@ -3,7 +3,7 @@ type Query {
   Location(PlantId: ID, LocationId: ID): Location
 
   """Местоположение"""
-  LocationSet(first: Int, offset: Int, substring: String): [Location]
+  LocationSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, NameSubstring: String): [Location]
 }
 
 """Местоположение"""

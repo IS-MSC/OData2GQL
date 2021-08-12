@@ -3,7 +3,7 @@ type Query {
   PropertyConfig(StatusFrom: ID, DefectId: ID, PropertyId: ID, StatusTo: ID): PropertyConfig
 
   """Конфигурация свойства сущности для UI"""
-  PropertyConfigSet(first: Int, offset: Int, substring: String): [PropertyConfig]
+  PropertyConfigSet(first: Int, offset: Int, StatusFromSubstring: String, DefectIdSubstring: String, PropertyIdSubstring: String, StatusToSubstring: String): [PropertyConfig]
 }
 
 """Конфигурация свойства сущности для UI"""

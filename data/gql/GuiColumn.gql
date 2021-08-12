@@ -3,7 +3,7 @@ type Query {
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
 
   """Колонка таблицы GUI с настройками по умолчанию"""
-  GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
+  GuiColumnSet(first: Int, offset: Int, ComponentIdSubstring: String, PathSubstring: String, ElementIdSubstring: String, ColumnIdSubstring: String, NameSubstring: String, WidthSubstring: String): [GuiColumn]
 }
 
 """Колонка таблицы GUI с настройками по умолчанию"""

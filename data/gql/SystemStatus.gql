@@ -3,7 +3,7 @@ type Query {
   SystemStatus(SysStatusId: ID): SystemStatus
 
   """Системный статус дефекта"""
-  SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
+  SystemStatusSet(first: Int, offset: Int, SysStatusIdSubstring: String, ShortNameSubstring: String, NameSubstring: String): [SystemStatus]
 }
 
 """Системный статус дефекта"""

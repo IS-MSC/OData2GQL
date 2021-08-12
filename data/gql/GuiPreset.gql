@@ -3,7 +3,7 @@ type Query {
   GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
 
   """"""
-  GuiPresetSet(first: Int, offset: Int, substring: String): [GuiPreset]
+  GuiPresetSet(first: Int, offset: Int, PresetIdSubstring: String, ComponentIdSubstring: String, ElementIdSubstring: String, UserIdSubstring: String, NameSubstring: String, ValueSubstring: String): [GuiPreset]
 }
 
 """"""

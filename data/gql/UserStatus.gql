@@ -3,7 +3,7 @@ type Query {
   UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
 
   """Пользовательский статус дефекта"""
-  UserStatusSet(first: Int, offset: Int, substring: String): [UserStatus]
+  UserStatusSet(first: Int, offset: Int, DefectIdSubstring: String, UsrStatusIdSubstring: String, ShortNameSubstring: String, NameSubstring: String, NameAsActionSubstring: String): [UserStatus]
 }
 
 """Пользовательский статус дефекта"""

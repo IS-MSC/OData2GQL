@@ -3,7 +3,7 @@ type Query {
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
 
   """Верхнеуровневое ТМ"""
-  SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
+  SupFunctLocationSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, SupFunctLocationIdSubstring: String, NameSubstring: String): [SupFunctLocation]
 }
 
 """Верхнеуровневое ТМ"""

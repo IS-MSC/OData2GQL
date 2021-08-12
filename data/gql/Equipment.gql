@@ -3,7 +3,7 @@ type Query {
   Equipment(EquipmentId: ID): Equipment
 
   """Единица оборудования"""
-  EquipmentSet(first: Int, offset: Int, substring: String): [Equipment]
+  EquipmentSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, EquipmentIdSubstring: String, NameSubstring: String, FunctLocationIdSubstring: String, SupFunctLocationIdSubstring: String): [Equipment]
 }
 
 """Единица оборудования"""

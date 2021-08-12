@@ -3,7 +3,7 @@ type Query {
   ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
 
   """Ссылочное сообщение"""
-  ReferencedNotificationSet(first: Int, offset: Int, substring: String): [ReferencedNotification]
+  ReferencedNotificationSet(first: Int, offset: Int, TypeSubstring: String, SupFunctLocationIdSubstring: String, ReferencedNotificationIdSubstring: String, TextSubstring: String, PlantIdSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, EquipmentIdSubstring: String): [ReferencedNotification]
 }
 
 """Ссылочное сообщение"""

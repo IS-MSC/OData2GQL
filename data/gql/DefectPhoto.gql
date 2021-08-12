@@ -3,7 +3,7 @@ type Query {
   DefectPhoto(DefectId: ID, Name: ID, Source: ID, InternalId: ID): DefectPhoto
 
   """"""
-  DefectPhotoSet(first: Int, offset: Int, substring: String): [DefectPhoto]
+  DefectPhotoSet(first: Int, offset: Int, DefectIdSubstring: String, NameSubstring: String, SourceSubstring: String, InternalIdSubstring: String, PhotoTypeSubstring: String): [DefectPhoto]
 }
 
 """"""

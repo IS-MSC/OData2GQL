@@ -260,27 +260,70 @@ const makeParentResolver = (entity: Entity) => {
 	return resolver;
 };
 
+interface ResolverParams {
+	[param: string]: string;
+}
+
+const makeSetResolverQuery = (entity: Entity, params: ResolverParams) => {
+	const query: string[] = [];
+	if (params["first"]) {
+		query.push(`top=${params["first"]}`);
+	}
+	if (params["offset"]) {
+		query.push(`skip=${params["offset"]}`);
+	}
+	const filter: string[] = [];
+	const e = encodeURIComponent;
+	entity.properties.map((p) => {
+		if (p.type == "String") {
+			if (params[p.name + "Substring"]) {
+				filter.push(
+					`substringof(${e(`'${params[p.name + "Substring"]}', ${p.name}`)})`
+				);
+			}
+		}
+	});
+	if (filter.length) {
+		query.push(`filter=(${filter.join(" and ")})`);
+	}
+	return query.map((s) => "$" + s).join("&");
+};
+
 const makeSetResolver = (entity: Entity) => {
-	const resolver = async (_: any, params: any, context: ResolverContext) => {
-		const query = [
-			params["first"] ? `$top=${params["first"]}` : "",
-			params["offset"] ? `$skip=${params["offset"]}` : "",
-			params["substring"]
-				? `$filter=substringof('${encodeURIComponent(
-						params["substring"]
-				  )}', DamageName)`
-				: "",
-		]
-			.filter((v) => !!v)
-			.join("&");
-		const url = `${entity.name}Set&${query}`;
+	const resolver = async (
+		_: any,
+		params: ResolverParams,
+		context: ResolverContext
+	) => {
+		const query = makeSetResolverQuery(entity, params);
+		console.log(query);
+		const url = `${entity.name}Set?${query}`;
 		console.log(url);
 		const response = await context.dataSources.oData.request(url);
-
+		console.log(response);
 		return response;
 	};
 	return resolver;
 };
+
+const makeGQLQuerySetFieldArgs = (entity: Entity) => {
+	const args: { [index: string]: any } = {};
+	args["first"] = {
+		type: GraphQLInt,
+	};
+	args["offset"] = {
+		type: GraphQLInt,
+	};
+	entity.properties.forEach((p) => {
+		if (p.type == "String") {
+			args[p.name + "Substring"] = {
+				type: GraphQLString,
+			};
+		}
+	});
+	return args;
+};
+
 const globalQueryFields: { [index: string]: any } = {};
 const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 	const fields: { [index: string]: any } = {};
@@ -295,15 +338,11 @@ const makeGQLQueryFields = (entity: Entity, type: GraphQLObjectType) => {
 		}, {} as { [index: string]: any }),
 		resolve: makeKeysResolver(entity),
 	};
+
 	const setField = {
 		type: new GraphQLList(type),
 		description: entity.description,
-		args: ["first", "offset", "substring"].reduce((a, k) => {
-			a[k] = {
-				type: k === "substring" ? GraphQLString : GraphQLInt,
-			};
-			return a;
-		}, {} as { [index: string]: any }),
+		args: makeGQLQuerySetFieldArgs(entity),
 		resolve: makeSetResolver(entity),
 	};
 	fields[entity.name] = field;

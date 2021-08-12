@@ -3,7 +3,7 @@ type Query {
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
 
   """Группа кодов причины изменения срока устранения"""
-  ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
+  ActivityGroupSet(first: Int, offset: Int, ActivityGroupIdSubstring: String, NameSubstring: String): [ActivityGroup]
 }
 
 """Группа кодов причины изменения срока устранения"""

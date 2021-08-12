@@ -3,7 +3,7 @@ type Query {
   ObjectType(ObjTypeId: ID): ObjectType
 
   """Тип объекта оборудования"""
-  ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
+  ObjectTypeSet(first: Int, offset: Int, NameSubstring: String): [ObjectType]
 }
 
 """Тип объекта оборудования"""

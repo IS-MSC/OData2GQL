@@ -3,7 +3,7 @@ type Query {
   Order(DefectId: ID, OrderId: ID): Order
 
   """Заказы к дефектам"""
-  OrderSet(first: Int, offset: Int, substring: String): [Order]
+  OrderSet(first: Int, offset: Int, DefectIdSubstring: String, OrderIdSubstring: String, TextSubstring: String, FunctLocationIdSubstring: String, FunctLocationNameSubstring: String, EquipmentIdSubstring: String, EquipmentNameSubstring: String, MaintActivityTypeIdSubstring: String): [Order]
 }
 
 """Заказы к дефектам"""

@@ -3,7 +3,7 @@ type Query {
   Plant(PlantId: ID): Plant
 
   """Завод/Филиал"""
-  PlantSet(first: Int, offset: Int, substring: String): [Plant]
+  PlantSet(first: Int, offset: Int, PlantIdSubstring: String, ShortTextSubstring: String, NameSubstring: String): [Plant]
 }
 
 """Завод/Филиал"""

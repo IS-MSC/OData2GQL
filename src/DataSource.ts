@@ -42,8 +42,9 @@ export const createDataSource = (url: string) => {
 						urls.forEach((r, i) => {
 							let results = data[i].data.d;
 							if (results && results.results) {
-								results = results;
+								results = results.results;
 							}
+
 							r.request.resolve(results);
 						})
 					);
@@ -54,19 +55,21 @@ export const createDataSource = (url: string) => {
 		requestMap: { [url: string]: PendingRequest } = {};
 		cache: { [url: string]: any } = {};
 		promiseMap: Promise<any>[] = [];
-
+		id = 0;
 		_fetch(url: string) {
 			let promise = new Promise((resolve, reject) => {
 				if (this.requestMap[url]) {
-					const existingRequest = this.requestMap[url];
+					const existingRequest = { ...this.requestMap[url] };
 
 					if (existingRequest.status != "fullfiled") {
+						const oldResolve = existingRequest.resolve;
 						existingRequest.resolve = (data: any) => {
-							this.requestMap[url].resolve(data);
+							oldResolve(data);
 							resolve(data);
 						};
+						const oldReject = existingRequest.reject;
 						existingRequest.reject = (e: any) => {
-							this.requestMap[url].reject(e);
+							oldReject(e);
 							reject(e);
 						};
 						this.requestMap[url] = existingRequest;

@@ -3,7 +3,7 @@ type Query {
   WebLink(Url: ID): WebLink
 
   """"""
-  WebLinkSet(first: Int, offset: Int, substring: String): [WebLink]
+  WebLinkSet(first: Int, offset: Int, UrlSubstring: String): [WebLink]
 }
 
 """"""

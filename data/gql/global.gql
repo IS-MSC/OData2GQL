@@ -3,211 +3,211 @@ type Query {
   DefectDetailDescription(DefectId: ID): DefectDetailDescription
 
   """"""
-  DefectDetailDescriptionSet(first: Int, offset: Int, substring: String): [DefectDetailDescription]
+  DefectDetailDescriptionSet(first: Int, offset: Int, DefectIdSubstring: String, DescriptionSubstring: String): [DefectDetailDescription]
 
   """"""
   DefectPhoto(DefectId: ID, Name: ID, Source: ID, InternalId: ID): DefectPhoto
 
   """"""
-  DefectPhotoSet(first: Int, offset: Int, substring: String): [DefectPhoto]
+  DefectPhotoSet(first: Int, offset: Int, DefectIdSubstring: String, NameSubstring: String, SourceSubstring: String, InternalIdSubstring: String, PhotoTypeSubstring: String): [DefectPhoto]
 
   """Сообщение о дефекте"""
   DefectNotification(DefectNotificationId: ID): DefectNotification
 
   """Сообщение о дефекте"""
-  DefectNotificationSet(first: Int, offset: Int, substring: String): [DefectNotification]
+  DefectNotificationSet(first: Int, offset: Int, TypeSubstring: String, DefectNotificationIdSubstring: String, TextSubstring: String, PlantIdSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, EquipmentIdSubstring: String): [DefectNotification]
 
   """Ссылочное сообщение"""
   ReferencedNotification(ReferencedNotificationId: ID): ReferencedNotification
 
   """Ссылочное сообщение"""
-  ReferencedNotificationSet(first: Int, offset: Int, substring: String): [ReferencedNotification]
+  ReferencedNotificationSet(first: Int, offset: Int, TypeSubstring: String, SupFunctLocationIdSubstring: String, ReferencedNotificationIdSubstring: String, TextSubstring: String, PlantIdSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, EquipmentIdSubstring: String): [ReferencedNotification]
 
   """Тип объекта оборудования"""
   ObjectType(ObjTypeId: ID): ObjectType
 
   """Тип объекта оборудования"""
-  ObjectTypeSet(first: Int, offset: Int, substring: String): [ObjectType]
+  ObjectTypeSet(first: Int, offset: Int, NameSubstring: String): [ObjectType]
 
   """Класс вольтажа для оборудования"""
   VoltageClass(VoltageId: ID): VoltageClass
 
   """Класс вольтажа для оборудования"""
-  VoltageClassSet(first: Int, offset: Int, substring: String): [VoltageClass]
+  VoltageClassSet(first: Int, offset: Int, NameSubstring: String): [VoltageClass]
 
   """Верхнеуровневое ТМ"""
   SupFunctLocation(SupFunctLocationId: ID): SupFunctLocation
 
   """Верхнеуровневое ТМ"""
-  SupFunctLocationSet(first: Int, offset: Int, substring: String): [SupFunctLocation]
+  SupFunctLocationSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, SupFunctLocationIdSubstring: String, NameSubstring: String): [SupFunctLocation]
 
   """Единица оборудования"""
   Equipment(EquipmentId: ID): Equipment
 
   """Единица оборудования"""
-  EquipmentSet(first: Int, offset: Int, substring: String): [Equipment]
+  EquipmentSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, EquipmentIdSubstring: String, NameSubstring: String, FunctLocationIdSubstring: String, SupFunctLocationIdSubstring: String): [Equipment]
 
   """Техническое место"""
   FunctLocation(FunctLocationId: ID): FunctLocation
 
   """Техническое место"""
-  FunctLocationSet(first: Int, offset: Int, substring: String): [FunctLocation]
+  FunctLocationSet(first: Int, offset: Int, PlantIdSubstring: String, SupFunctLocationNameSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, NameSubstring: String, SupFunctLocationIdSubstring: String): [FunctLocation]
 
   """"""
   UserStatusTransition(StatusFrom: ID, DefectId: ID, StatusTo: ID): UserStatusTransition
 
   """"""
-  UserStatusTransitionSet(first: Int, offset: Int, substring: String): [UserStatusTransition]
+  UserStatusTransitionSet(first: Int, offset: Int, StatusFromSubstring: String, DefectIdSubstring: String, StatusToSubstring: String, RequiredDataGroupSubstring: String): [UserStatusTransition]
 
   """Ответственный"""
   PersonnelNumber(PersonnelNumberId: ID): PersonnelNumber
 
   """Ответственный"""
-  PersonnelNumberSet(first: Int, offset: Int, substring: String): [PersonnelNumber]
+  PersonnelNumberSet(first: Int, offset: Int, CompanyCodeSubstring: String, PersonnelNumberIdSubstring: String, SurnameSubstring: String, NameSubstring: String, MiddleNameSubstring: String, FunctionSubstring: String): [PersonnelNumber]
 
   """Заказы к дефектам"""
   Order(DefectId: ID, OrderId: ID): Order
 
   """Заказы к дефектам"""
-  OrderSet(first: Int, offset: Int, substring: String): [Order]
+  OrderSet(first: Int, offset: Int, DefectIdSubstring: String, OrderIdSubstring: String, TextSubstring: String, FunctLocationIdSubstring: String, FunctLocationNameSubstring: String, EquipmentIdSubstring: String, EquipmentNameSubstring: String, MaintActivityTypeIdSubstring: String): [Order]
 
   """Конфигурация свойства сущности для UI"""
   PropertyConfig(StatusFrom: ID, DefectId: ID, PropertyId: ID, StatusTo: ID): PropertyConfig
 
   """Конфигурация свойства сущности для UI"""
-  PropertyConfigSet(first: Int, offset: Int, substring: String): [PropertyConfig]
+  PropertyConfigSet(first: Int, offset: Int, StatusFromSubstring: String, DefectIdSubstring: String, PropertyIdSubstring: String, StatusToSubstring: String): [PropertyConfig]
 
   """Колонка таблицы GUI с настройками по умолчанию"""
   GuiColumn(ComponentId: ID, ElementId: ID, ColumnId: ID): GuiColumn
 
   """Колонка таблицы GUI с настройками по умолчанию"""
-  GuiColumnSet(first: Int, offset: Int, substring: String): [GuiColumn]
+  GuiColumnSet(first: Int, offset: Int, ComponentIdSubstring: String, PathSubstring: String, ElementIdSubstring: String, ColumnIdSubstring: String, NameSubstring: String, WidthSubstring: String): [GuiColumn]
 
   """Код группы неисправности/дефекта"""
   DamageGroup(DamageGroupId: ID): DamageGroup
 
   """Код группы неисправности/дефекта"""
-  DamageGroupSet(first: Int, offset: Int, substring: String): [DamageGroup]
+  DamageGroupSet(first: Int, offset: Int, DamageGroupIdSubstring: String, EquipmentIdSubstring: String, NameSubstring: String, FunctLocationIdSubstring: String): [DamageGroup]
 
   """Код неисправности/дефекта"""
   Damage(DamageId: ID, DamageGroupId: ID): Damage
 
   """Код неисправности/дефекта"""
-  DamageSet(first: Int, offset: Int, substring: String): [Damage]
+  DamageSet(first: Int, offset: Int, DamageIdSubstring: String, EquipmentIdSubstring: String, DamageGroupIdSubstring: String, NameSubstring: String, FunctLocationIdSubstring: String): [Damage]
 
   """"""
   UserPermission(Id: ID): UserPermission
 
   """"""
-  UserPermissionSet(first: Int, offset: Int, substring: String): [UserPermission]
+  UserPermissionSet(first: Int, offset: Int, IdSubstring: String): [UserPermission]
 
   """"""
   UserParameter(UserId: ID, Id: ID): UserParameter
 
   """"""
-  UserParameterSet(first: Int, offset: Int, substring: String): [UserParameter]
+  UserParameterSet(first: Int, offset: Int, UserIdSubstring: String, IdSubstring: String, ValueSubstring: String, NameSubstring: String): [UserParameter]
 
   """"""
   WebLink(Url: ID): WebLink
 
   """"""
-  WebLinkSet(first: Int, offset: Int, substring: String): [WebLink]
+  WebLinkSet(first: Int, offset: Int, UrlSubstring: String): [WebLink]
 
   """"""
   Setting(Key: ID): Setting
 
   """"""
-  SettingSet(first: Int, offset: Int, substring: String): [Setting]
+  SettingSet(first: Int, offset: Int, KeySubstring: String, ValueSubstring: String): [Setting]
 
   """"""
   TransactionLink(BusinessObjectType: ID): TransactionLink
 
   """"""
-  TransactionLinkSet(first: Int, offset: Int, substring: String): [TransactionLink]
+  TransactionLinkSet(first: Int, offset: Int, BusinessObjectTypeSubstring: String, WebguiCallCommandSubstring: String): [TransactionLink]
 
   """"""
   ImageDocType(FileExtension: ID): ImageDocType
 
   """"""
-  ImageDocTypeSet(first: Int, offset: Int, substring: String): [ImageDocType]
+  ImageDocTypeSet(first: Int, offset: Int, FileExtensionSubstring: String, MimeTypeSubstring: String): [ImageDocType]
 
   """Системный статус дефекта"""
   SystemStatus(SysStatusId: ID): SystemStatus
 
   """Системный статус дефекта"""
-  SystemStatusSet(first: Int, offset: Int, substring: String): [SystemStatus]
+  SystemStatusSet(first: Int, offset: Int, SysStatusIdSubstring: String, ShortNameSubstring: String, NameSubstring: String): [SystemStatus]
 
   """Пользовательский статус дефекта"""
   UserStatus(DefectId: ID, UsrStatusId: ID): UserStatus
 
   """Пользовательский статус дефекта"""
-  UserStatusSet(first: Int, offset: Int, substring: String): [UserStatus]
+  UserStatusSet(first: Int, offset: Int, DefectIdSubstring: String, UsrStatusIdSubstring: String, ShortNameSubstring: String, NameSubstring: String, NameAsActionSubstring: String): [UserStatus]
 
   """Завод/Филиал"""
   Plant(PlantId: ID): Plant
 
   """Завод/Филиал"""
-  PlantSet(first: Int, offset: Int, substring: String): [Plant]
+  PlantSet(first: Int, offset: Int, PlantIdSubstring: String, ShortTextSubstring: String, NameSubstring: String): [Plant]
 
   """Местоположение"""
   Location(PlantId: ID, LocationId: ID): Location
 
   """Местоположение"""
-  LocationSet(first: Int, offset: Int, substring: String): [Location]
+  LocationSet(first: Int, offset: Int, PlantIdSubstring: String, LocationIdSubstring: String, NameSubstring: String): [Location]
 
   """"""
   Defect(DefectId: ID): Defect
 
   """"""
-  DefectSet(first: Int, offset: Int, substring: String): [Defect]
+  DefectSet(first: Int, offset: Int, ActivityCatalogTypeIdSubstring: String, ComplexCriteriaSubstring: String, ExecutionMethodNameSubstring: String, ActivityGroupIdSubstring: String, ActivityIdSubstring: String, ActivityNameSubstring: String, ActivityNumberSubstring: String, ActivityTextSubstring: String, CostCenterIdSubstring: String, CreateNotificNameAndPositionSubstring: String, CreateNotificPersonnelNumberSubstring: String, CriticalityCategorySubstring: String, DamageCatalogIdSubstring: String, DamageGroupIdSubstring: String, DamageGroupNameSubstring: String, DamageIdSubstring: String, DamageNameSubstring: String, DefectIdSubstring: String, DefectStatusIdSubstring: String, DetectDefectNameAndPositionSubstring: String, DetectDefectPersonnelNumberSubstring: String, DetectDefectPersonnelSignatureSubstring: String, EquipmentIdSubstring: String, EquipmentNameSubstring: String, ExecutionMethodSubstring: String, ExecutiveNameAndPositionSubstring: String, ExecutivePersonnelNumberSubstring: String, FunctLocationIdSubstring: String, FunctLocationNameSubstring: String, InternalDefectIdSubstring: String, JobOrderSubstring: String, LocationIdSubstring: String, LocationNameSubstring: String, ManagerInstructionOnDefectRepairSubstring: String, NotificationTypeIdSubstring: String, NotifiedNameAndPositionSubstring: String, NotifiedPersonnelNumberSubstring: String, NumberOfRepairPostponementsSubstring: String, ObjectTypeSubstring: String, OrderActivityTypeIdSubstring: String, OrderIdSubstring: String, PhotoRequirementSubstring: String, PlanningPlantIdSubstring: String, PlantIdSubstring: String, PlantNameSubstring: String, PositionIdSubstring: String, PositionShortTextSubstring: String, ReferencedNotificationIdSubstring: String, ReferencedNotificationShortTextSubstring: String, ResponsibleNameAndPositionSubstring: String, ResponsiblePersonnelNumberSubstring: String, ResponsiblePersonnelSignatureSubstring: String, StatSubstring: String, SttxtSubstring: String, SupFunctLocationIdSubstring: String, SupFunctLocationNameSubstring: String, SystemStatusIdSubstring: String, SystemStatusShortTextSubstring: String, SystemStatusTextSubstring: String, TaskCatalogTypeIdSubstring: String, TaskCodeGroupIdSubstring: String, TaskCodeGroupNameSubstring: String, TaskCodeIdSubstring: String, TaskCodeNameSubstring: String, TaskIdSubstring: String, UserStatusCommentSubstring: String, UserStatusIdSubstring: String, UserStatusShortTextSubstring: String, UserStatusTextSubstring: String, UserPasswordSubstring: String): [Defect]
 
   """Пользователь"""
   User(UserId: ID): User
 
   """Пользователь"""
-  UserSet(first: Int, offset: Int, substring: String): [User]
+  UserSet(first: Int, offset: Int, UserIdSubstring: String, NameSubstring: String): [User]
 
   """Код группы производственной программы"""
   TaskGroup(TaskGroupId: ID): TaskGroup
 
   """Код группы производственной программы"""
-  TaskGroupSet(first: Int, offset: Int, substring: String): [TaskGroup]
+  TaskGroupSet(first: Int, offset: Int, TaskGroupIdSubstring: String, NameSubstring: String): [TaskGroup]
 
   """Код производственной программы"""
   Task(TaskId: ID, TaskGroupId: ID): Task
 
   """Код производственной программы"""
-  TaskSet(first: Int, offset: Int, substring: String): [Task]
+  TaskSet(first: Int, offset: Int, TaskIdSubstring: String, TaskGroupIdSubstring: String, NameSubstring: String): [Task]
 
   """Группа кодов причины изменения срока устранения"""
   ActivityGroup(ActivityGroupId: ID): ActivityGroup
 
   """Группа кодов причины изменения срока устранения"""
-  ActivityGroupSet(first: Int, offset: Int, substring: String): [ActivityGroup]
+  ActivityGroupSet(first: Int, offset: Int, ActivityGroupIdSubstring: String, NameSubstring: String): [ActivityGroup]
 
   """Код причины изменения срока устранения"""
   Activity(ActivityId: ID, ActivityGroupId: ID): Activity
 
   """Код причины изменения срока устранения"""
-  ActivitySet(first: Int, offset: Int, substring: String): [Activity]
+  ActivitySet(first: Int, offset: Int, ActivityIdSubstring: String, ActivityGroupIdSubstring: String, NameSubstring: String): [Activity]
 
   """Аналитическая информация о статусах дефектов"""
   DefectUserStatusHistory(DefectId: ID, StatusName: ID, StatusSetDate: ID, StatusSetTime: ID): DefectUserStatusHistory
 
   """Аналитическая информация о статусах дефектов"""
-  DefectUserStatusHistorySet(first: Int, offset: Int, substring: String): [DefectUserStatusHistory]
+  DefectUserStatusHistorySet(first: Int, offset: Int, DefectIdSubstring: String, StatusNameSubstring: String, UserIdSubstring: String, UserNameSubstring: String, UserFunctionSubstring: String): [DefectUserStatusHistory]
 
   """"""
   GuiPreset(PresetId: ID, ComponentId: ID, ElementId: ID): GuiPreset
 
   """"""
-  GuiPresetSet(first: Int, offset: Int, substring: String): [GuiPreset]
+  GuiPresetSet(first: Int, offset: Int, PresetIdSubstring: String, ComponentIdSubstring: String, ElementIdSubstring: String, UserIdSubstring: String, NameSubstring: String, ValueSubstring: String): [GuiPreset]
 
   """"""
   GuiSelectedPreset(UserId: ID, ComponentId: ID, ElementId: ID): GuiSelectedPreset
 
   """"""
-  GuiSelectedPresetSet(first: Int, offset: Int, substring: String): [GuiSelectedPreset]
+  GuiSelectedPresetSet(first: Int, offset: Int, UserIdSubstring: String, ComponentIdSubstring: String, ElementIdSubstring: String, PresetIdSubstring: String): [GuiSelectedPreset]
 }
 
 """"""

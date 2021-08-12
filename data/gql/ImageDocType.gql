@@ -3,7 +3,7 @@ type Query {
   ImageDocType(FileExtension: ID): ImageDocType
 
   """"""
-  ImageDocTypeSet(first: Int, offset: Int, substring: String): [ImageDocType]
+  ImageDocTypeSet(first: Int, offset: Int, FileExtensionSubstring: String, MimeTypeSubstring: String): [ImageDocType]
 }
 
 """"""

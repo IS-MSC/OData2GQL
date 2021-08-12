@@ -3,7 +3,7 @@ type Query {
   FunctLocation(FunctLocationId: ID): FunctLocation
 
   """Техническое место"""
-  FunctLocationSet(first: Int, offset: Int, substring: String): [FunctLocation]
+  FunctLocationSet(first: Int, offset: Int, PlantIdSubstring: String, SupFunctLocationNameSubstring: String, LocationIdSubstring: String, FunctLocationIdSubstring: String, NameSubstring: String, SupFunctLocationIdSubstring: String): [FunctLocation]
 }
 
 """Техническое место"""

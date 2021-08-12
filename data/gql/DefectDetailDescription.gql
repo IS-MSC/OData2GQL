@@ -3,7 +3,7 @@ type Query {
   DefectDetailDescription(DefectId: ID): DefectDetailDescription
 
   """"""
-  DefectDetailDescriptionSet(first: Int, offset: Int, substring: String): [DefectDetailDescription]
+  DefectDetailDescriptionSet(first: Int, offset: Int, DefectIdSubstring: String, DescriptionSubstring: String): [DefectDetailDescription]
 }
 
 """"""

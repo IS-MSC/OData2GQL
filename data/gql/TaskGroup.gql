@@ -3,7 +3,7 @@ type Query {
   TaskGroup(TaskGroupId: ID): TaskGroup
 
   """Код группы производственной программы"""
-  TaskGroupSet(first: Int, offset: Int, substring: String): [TaskGroup]
+  TaskGroupSet(first: Int, offset: Int, TaskGroupIdSubstring: String, NameSubstring: String): [TaskGroup]
 }
 
 """Код группы производственной программы"""
