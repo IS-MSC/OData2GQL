@@ -11,19 +11,48 @@ interface PendingRequest {
 }
 
 let count = 0;
+const typeSizes = {
+	undefined: () => 0,
+	boolean: () => 4,
+	number: () => 8,
+	string: (item: any) => 2 * item.length,
+	object: (item: any): any =>
+		!item
+			? 0
+			: Object.keys(item).reduce(
+					(total, key) =>
+						sizeOf(key as keyof typeof typeSizes) + sizeOf(item[key]) + total,
+					0
+			  ),
+};
 
-export const createDataSource = (url: string) => {
-	return class ODataAPI extends RESTDataSource {
-		constructor() {
-			super();
-			this.baseURL = url;
+//@ts-ignore
+const sizeOf = (value: keyof typeof typeSizes) =>
+	//@ts-ignore
+	typeSizes[typeof value](value);
 
-			setInterval(() => {
-				// console.log("Request map", this.requestMap);
-				const urls = Object.entries(this.requestMap)
+const IntervalHolder = (() => {
+	const subscribers: WeakRef<
+		InstanceType<ReturnType<typeof createDataSource>>
+	>[] = [];
+
+	const interval = setInterval(() => {
+		console.log(
+			subscribers.reduce((a, s) => {
+				if (s.deref()) {
+					return a + 1;
+				}
+				return a;
+			}, 0)
+		);
+		subscribers.forEach((s) => {
+			const subscriber = s.deref();
+			if (subscriber) {
+				const urls = Object.entries(subscriber.requestMap)
 					.filter(([url, request]) => request.status == "fresh")
+					.slice(0, 20)
 					.map(([url, request]) => {
-						this.requestMap[url].status = "pending";
+						subscriber.requestMap[url].status = "pending";
 						count++;
 						if (count > 100) {
 							process.exit(-1);
@@ -35,10 +64,12 @@ export const createDataSource = (url: string) => {
 						};
 					});
 				if (urls.length) {
+					console.log("Packing together " + urls.length + " requests ");
 					batchFetch({
-						url: this.baseURL!,
+						url: subscriber.baseURL!,
 						data: urls,
-					}).then(([status, data]) =>
+					}).then(([status, data]) => {
+						console.log(Math.round(sizeOf(data) / 1024) + "KB");
 						urls.forEach((r, i) => {
 							let results = data[i].data.d;
 							if (results && results.results) {
@@ -46,13 +77,30 @@ export const createDataSource = (url: string) => {
 							}
 
 							r.request.resolve(results);
-						})
-					);
+						});
+					});
 				}
-			});
+			}
+		});
+	});
+
+	return {
+		subscribe: (api: InstanceType<ReturnType<typeof createDataSource>>) => {
+			subscribers.push(new WeakRef(api));
+		},
+	};
+})();
+
+export const createDataSource = (url: string) => {
+	return class ODataAPI extends RESTDataSource {
+		constructor() {
+			super();
+			this.baseURL = url;
+
+			IntervalHolder.subscribe(this);
 		}
 
-		requestMap: { [url: string]: PendingRequest } = {};
+		public requestMap: { [url: string]: PendingRequest } = {};
 		cache: { [url: string]: any } = {};
 		promiseMap: Promise<any>[] = [];
 		id = 0;

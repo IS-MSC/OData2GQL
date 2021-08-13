@@ -296,11 +296,11 @@ const makeSetResolver = (entity: Entity) => {
 		context: ResolverContext
 	) => {
 		const query = makeSetResolverQuery(entity, params);
-		console.log(query);
+		// console.log(query);
 		const url = `${entity.name}Set?${query}`;
-		console.log(url);
+		// console.log(url);
 		const response = await context.dataSources.oData.request(url);
-		console.log(response);
+		// console.log(response);
 		return response;
 	};
 	return resolver;
